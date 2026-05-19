@@ -180,28 +180,10 @@
     <div class="grid-12">
       <a class="card col-span-6 rv" href="solutions.html#voirie" style="text-decoration:none; color:inherit">
         <div class="card__media">
-          <div class="ph ph--ink ph--grid" data-label="01 / Voirie">
-            <svg viewBox="0 0 400 300" style="width:80%;height:80%;position:relative;z-index:1" aria-hidden="true">
-              <defs>
-                <radialGradient id="gIron" cx="50%" cy="40%" r="55%">
-                  <stop offset="0%" stop-color="#3A3933"/>
-                  <stop offset="100%" stop-color="#0A0A07"/>
-                </radialGradient>
-              </defs>
-              <circle cx="200" cy="150" r="110" fill="url(#gIron)" stroke="#4A463E" stroke-width="1"/>
-              <circle cx="200" cy="150" r="95" fill="none" stroke="#5C5950" stroke-width="1"/>
-              <g stroke="#9C988B" stroke-width="1.2" fill="none">
-                <circle cx="200" cy="150" r="80"/>
-                <circle cx="200" cy="150" r="60"/>
-                <circle cx="200" cy="150" r="40"/>
-                <line x1="120" y1="150" x2="280" y2="150"/>
-                <line x1="200" y1="70" x2="200" y2="230"/>
-                <line x1="143" y1="93" x2="257" y2="207"/>
-                <line x1="257" y1="93" x2="143" y2="207"/>
-              </g>
-              <text x="200" y="156" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="#C8541A">CITABEL · D400</text>
-            </svg>
-          </div>
+          <img class="card__photo"
+               src="/assets/images/tampon-rond-d400.jpg"
+               alt="Tampon de regard rond composite CITABEL — classe D400 ONAS, certifié EN 124-5, Dakar Sénégal"
+               loading="lazy" width="2816" height="1536" />
         </div>
         <div class="card__body">
           <span class="card__num">01 — <span data-fr="Voirie &amp; assainissement" data-en="Roads &amp; drainage">Voirie &amp; assainissement</span></span>
@@ -388,6 +370,8 @@
 </section>
 
 <style>
+  .card__photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: transform 1.2s cubic-bezier(.22,.68,0,1.2); }
+  .card:hover .card__photo{ transform: scale(1.06); }
   .step{ color: #C7C4B7; }
   .step__num{ font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: #8A8779 }
   .step__icon{ margin-top: 22px; color: #FAFAF6; width: 60px; height: 60px }
