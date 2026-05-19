@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "citabel-premium",
   "buildCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
