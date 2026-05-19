@@ -1,0 +1,13 @@
+{
+  "name": "CITABEL — Industrie circulaire",
+  "short_name": "Citabel",
+  "description": "CITABEL SARL — fabricant africain de tampons de regards et concepteur de logements modulaires en matériaux composites recyclés.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F2EFE8",
+  "theme_color": "#14140F",
+  "lang": "fr",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

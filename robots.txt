@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://citabel.sn/sitemap.xml
+
+# Block common attack paths
+Disallow: /admin
+Disallow: /wp-admin
+Disallow: /.env
+Disallow: /config

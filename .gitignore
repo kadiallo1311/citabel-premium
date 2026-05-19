@@ -1,0 +1,25 @@
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/settings.json
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+.env.production.local
+
+# Build artifacts
+dist/
+build/

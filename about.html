@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>CITABEL — À propos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="L'histoire, la vision et les réalisations de CITABEL — entreprise industrielle sénégalaise pionnière de l'économie circulaire africaine." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-head{
+    padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-head h1{
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 140px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 18px 0 0;
+  }
+  .page-head h1 em{ font-style: italic; color: var(--green) }
+  .breadcrumb{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute) }
+  .breadcrumb a{ color: inherit; text-decoration: none }
+
+  /* manifesto */
+  .manifesto{
+    font-family: var(--display);
+    font-size: clamp(34px, 3.6vw, 60px);
+    line-height: 1.1; letter-spacing: -.01em;
+    max-width: 22ch;
+  }
+  .manifesto em{ color: var(--green); font-style: italic }
+
+  /* timeline (history) */
+  .history{
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .history__row{
+    display: contents;
+  }
+  .history__row > div{
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .history__year{
+    font-family: var(--mono); font-size: 13px; letter-spacing: .12em;
+    color: var(--ink-mute); padding-right: 24px;
+  }
+  .history__body h4{
+    font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px);
+    line-height: 1; letter-spacing: -.01em; margin: 0;
+  }
+  .history__body h4 em{ color: var(--green); font-style: italic }
+  .history__body p{ color: var(--ink-soft); margin: 10px 0 0; font-size: 14px; max-width: 60ch; line-height: 1.55 }
+
+  @media (max-width: 700px){
+    .history{ grid-template-columns: 100px 1fr }
+  }
+
+  /* gallery masonry */
+  .gallery{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+  }
+  .gallery figure{
+    margin: 0; border-radius: var(--r-md);
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-warm);
+    transition: transform .5s var(--ease);
+  }
+  .gallery figure:hover{ transform: translateY(-4px) }
+  .gallery figcaption{
+    position: absolute; left: 16px; bottom: 16px; right: 16px;
+    color: #F0EDE3;
+    z-index: 2;
+    font-family: var(--display);
+    font-size: clamp(16px, 1.4vw, 22px);
+    line-height: 1.15;
+    text-shadow: 0 1px 12px rgba(0,0,0,.6);
+  }
+  .gallery figure::after{
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.55));
+    z-index: 1; pointer-events: none;
+  }
+  .gallery figure .kicker{
+    position: absolute; left: 16px; top: 16px;
+    color: rgba(240,237,227,.85);
+    z-index: 2;
+    text-shadow: 0 1px 6px rgba(0,0,0,.5);
+  }
+  .g-a{ grid-column: span 7; aspect-ratio: 16/10 }
+  .g-b{ grid-column: span 5; aspect-ratio: 4/5 }
+  .g-c{ grid-column: span 4; aspect-ratio: 4/5 }
+  .g-d{ grid-column: span 4; aspect-ratio: 1 }
+  .g-e{ grid-column: span 4; aspect-ratio: 4/5 }
+  .g-f{ grid-column: span 8; aspect-ratio: 16/9 }
+  .g-g{ grid-column: span 4; aspect-ratio: 4/5 }
+  .g-h{ grid-column: span 6; aspect-ratio: 16/10 }
+  .g-i{ grid-column: span 6; aspect-ratio: 16/10 }
+  @media (max-width: 800px){
+    .gallery > *{ grid-column: span 12 !important; aspect-ratio: 4/3 }
+  }
+
+  /* values block */
+  .values{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .value{
+    padding: 36px 32px 40px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .value:last-child{ border-right: 0 }
+  .value h3{ font-family: var(--display); font-size: clamp(28px, 3vw, 44px); line-height: 1; letter-spacing: -.01em }
+  .value h3 em{ color: var(--green); font-style: italic }
+  .value p{ color: var(--ink-soft); font-size: 14px; line-height: 1.6; margin: 16px 0 0; max-width: 32ch }
+  .value__icon{ width: 44px; height: 44px; color: var(--ink); margin-bottom: 26px }
+  @media (max-width: 900px){
+    .values{ grid-template-columns: 1fr }
+    .value{ border-right: 0 }
+  }
+
+  /* team */
+  .team{
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .teammate{}
+  .teammate__photo{
+    aspect-ratio: 3/4;
+    background: var(--bg-warm);
+    border-radius: var(--r-md);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .teammate__name{
+    font-family: var(--display); font-size: 22px; letter-spacing: -.01em; line-height: 1.05;
+  }
+  .teammate__role{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-mute);
+    margin-top: 6px;
+  }
+  @media (max-width: 900px){ .team{ grid-template-columns: 1fr 1fr } }
+
+  /* partner grid (denser) */
+  .partner-grid{
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .partner-grid > div{
+    aspect-ratio: 3/1;
+    display: grid; place-items: center;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: clamp(16px, 1.4vw, 22px);
+    color: var(--ink-soft);
+    letter-spacing: -.01em;
+    text-align: center;
+    transition: background .25s var(--ease), color .25s var(--ease);
+  }
+  .partner-grid > div:hover{ background: var(--ink); color: var(--paper) }
+  @media (max-width: 800px){ .partner-grid{ grid-template-columns: repeat(3, 1fr) } }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#14140F" /></head>
+<body data-page="about">
+<div data-slot="nav"></div>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb"><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <span data-fr="À propos" data-en="About">À propos</span></nav>
+    <h1 class="rv"><span data-fr="Une entreprise" data-en="One company">Une entreprise</span><br/><em data-fr="sénégalaise. De classe mondiale." data-en="Senegalese. World class.">sénégalaise. De classe mondiale.</em></h1>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="row-gap: 30px; align-items: start">
+      <div class="col-span-4 rv">
+        <span class="eyebrow"><span data-fr="Manifeste" data-en="Manifesto">Manifeste</span></span>
+      </div>
+      <div class="col-span-8 rv rv-1">
+        <p class="manifesto">
+          <span data-fr="Le déchet d'aujourd'hui est " data-en="Today's waste is ">Le déchet d'aujourd'hui est </span><em data-fr="l'infrastructure de demain" data-en="tomorrow's infrastructure">l'infrastructure de demain</em><span data-fr=". Le sol que nous foulons, le toit qui nous abrite — peuvent être faits de ce que nous jetons. CITABEL ne discute pas l'écologie. CITABEL l'industrialise." data-en=". The ground we walk on, the roof above us — can be made of what we throw away. CITABEL doesn't argue ecology. CITABEL industrialises it.">. Le sol que nous foulons, le toit qui nous abrite — peuvent être faits de ce que nous jetons. CITABEL ne discute pas l'écologie. CITABEL l'industrialise.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HISTORY ============ -->
+<section class="section--paper section section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 50px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Histoire" data-en="History">Histoire</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(40px, 5vw, 76px); line-height: 1">
+          <span data-fr="Quatre ans" data-en="Four years">Quatre ans</span>
+          <em data-fr="qui ont posé l'usine." data-en="that built the plant.">qui ont posé l'usine.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="history rv rv-2">
+      <div class="history__row">
+        <div class="history__year">2022</div>
+        <div class="history__body">
+          <h4><em data-fr="Fondation." data-en="Founding.">Fondation.</em> <span data-fr="Atelier pilote, Pikine." data-en="Pilot workshop, Pikine.">Atelier pilote, Pikine.</span></h4>
+          <p data-fr="Trois ingénieurs, une presse manuelle, mille bouteilles. La première brique emboîtable est moulée à la main, testée en compression dans une cuve béton." data-en="Three engineers, a manual press, a thousand bottles. The first interlocking brick is hand-moulded and compression-tested in a concrete tub.">
+            Trois ingénieurs, une presse manuelle, mille bouteilles. La première brique emboîtable est moulée à la main, testée en compression dans une cuve béton.
+          </p>
+        </div>
+      </div>
+      <div class="history__row">
+        <div class="history__year">2023</div>
+        <div class="history__body">
+          <h4><em data-fr="Premier chantier." data-en="First worksite.">Premier chantier.</em> <span data-fr="École primaire de Kaolack." data-en="Primary school of Kaolack.">École primaire de Kaolack.</span></h4>
+          <p data-fr="Six salles de classe, deux cours, sanitaires. Construites en 11 semaines par une équipe de 14 personnes. Toujours en service." data-en="Six classrooms, two courtyards, sanitation. Built in 11 weeks by a 14-person crew. Still in service.">
+            Six salles de classe, deux cours, sanitaires. Construites en 11 semaines par une équipe de 14 personnes. Toujours en service.
+          </p>
+        </div>
+      </div>
+      <div class="history__row">
+        <div class="history__year">2024</div>
+        <div class="history__body">
+          <h4><em data-fr="Usine n°1." data-en="Plant n°1.">Usine n°1.</em> <span data-fr="Dakar. Trois lignes de production." data-en="Dakar. Three production lines.">Dakar. Trois lignes de production.</span></h4>
+          <p data-fr="Inauguration en présence du ministre de l'Industrie. Lancement de la gamme voirie : tampons, grilles, regards. Premier marché public remporté avec l'Ageroute." data-en="Inaugurated in the presence of the Minister of Industry. Roadworks range launched: covers, grates, chambers. First public tender won with Ageroute.">
+            Inauguration en présence du ministre de l'Industrie. Lancement de la gamme voirie : tampons, grilles, regards. Premier marché public remporté avec l'Ageroute.
+          </p>
+        </div>
+      </div>
+      <div class="history__row">
+        <div class="history__year">2025</div>
+        <div class="history__body">
+          <h4><em data-fr="Pilote logement." data-en="Housing pilot.">Pilote logement.</em> <span data-fr="12 unités à Bargny." data-en="12 units in Bargny.">12 unités à Bargny.</span></h4>
+          <p data-fr="Premier ensemble résidentiel modulaire CITABEL. Études d'isolation et de confort thermique validées par l'École Polytechnique de Thiès." data-en="First CITABEL modular residential set. Insulation and thermal comfort studies validated by École Polytechnique de Thiès.">
+            Premier ensemble résidentiel modulaire CITABEL. Études d'isolation et de confort thermique validées par l'École Polytechnique de Thiès.
+          </p>
+        </div>
+      </div>
+      <div class="history__row">
+        <div class="history__year">2026</div>
+        <div class="history__body">
+          <h4><em data-fr="Expansion." data-en="Expansion.">Expansion.</em> <span data-fr="Préparation Usine n°2 à Diamniadio." data-en="Plant n°2 preparation in Diamniadio.">Préparation Usine n°2 à Diamniadio.</span></h4>
+          <p data-fr="Capacité triplée, automatisation IA, levée de fonds Série A. Ouverture du bureau commercial Abidjan." data-en="Tripled capacity, AI automation, Series A round. Abidjan sales office opens.">
+            Capacité triplée, automatisation IA, levée de fonds Série A. Ouverture du bureau commercial Abidjan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section class="section section--warm">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 36px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Convictions" data-en="Convictions">Convictions</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 64px); line-height: 1.02">
+          <span data-fr="Trois principes," data-en="Three principles,">Trois principes,</span>
+          <em data-fr="aucune exception." data-en="zero exception.">aucune exception.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="values rv rv-2">
+      <div class="value">
+        <div class="value__icon">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M22 4 C12 4 4 12 4 22 C4 32 12 40 22 40"/>
+            <path d="M22 40 C32 40 40 32 40 22"/>
+            <path d="M14 22 L22 30 L30 16" stroke="#2D4A3E" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <h3><em data-fr="Boucle" data-en="Loop">Boucle</em> <span data-fr="fermée." data-en="closed.">fermée.</span></h3>
+        <p data-fr="Tout ce qui sort de notre usine peut y revenir, être refondu, et redevenir matière. Le linéaire — extraire, fabriquer, jeter — n'est plus une option." data-en="Everything that leaves our plant can return, be remelted, and become matter again. Linear — extract, make, discard — is no longer an option.">
+          Tout ce qui sort de notre usine peut y revenir, être refondu, et redevenir matière. Le linéaire — extraire, fabriquer, jeter — n'est plus une option.
+        </p>
+      </div>
+      <div class="value">
+        <div class="value__icon">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M22 4 L40 14 L40 30 L22 40 L4 30 L4 14 Z"/>
+            <path d="M22 4 L22 22 L40 14 M22 22 L4 14 M22 22 L22 40"/>
+          </svg>
+        </div>
+        <h3><em data-fr="Local" data-en="Local">Local</em> <span data-fr="d'abord." data-en="first.">d'abord.</span></h3>
+        <p data-fr="Nos matières premières viennent du quartier d'à côté. Nos produits restent dans le pays. Nos salaires y restent aussi. L'industrie qui circule." data-en="Our raw matter comes from the next neighbourhood. Our products stay in the country. Our wages too. Industry that circulates.">
+          Nos matières premières viennent du quartier d'à côté. Nos produits restent dans le pays. Nos salaires y restent aussi. L'industrie qui circule.
+        </p>
+      </div>
+      <div class="value">
+        <div class="value__icon">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="6" y="6" width="32" height="32"/>
+            <path d="M6 18 L38 18 M6 26 L38 26 M18 6 L18 38 M26 6 L26 38"/>
+            <rect x="18" y="18" width="8" height="8" fill="#2D4A3E"/>
+          </svg>
+        </div>
+        <h3><em data-fr="Qualité" data-en="Quality">Qualité</em> <span data-fr="documentée." data-en="documented.">documentée.</span></h3>
+        <p data-fr="Chaque lot est testé, marqué, traçable. Pas de marketing vert — des fiches techniques, des essais, des certifications. La rigueur d'un bureau d'études." data-en="Every batch tested, marked, traceable. No greenwashing — datasheets, tests, certifications. The rigour of an engineering office.">
+          Chaque lot est testé, marqué, traçable. Pas de marketing vert — des fiches techniques, des essais, des certifications. La rigueur d'un bureau d'études.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section section--paper" id="gallery">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 50px; row-gap: 18px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Galerie" data-en="Gallery">Galerie</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(40px, 5vw, 76px); line-height: 1">
+          <span data-fr="Projets, produits," data-en="Projects, products,">Projets, produits,</span>
+          <em data-fr="quotidien." data-en="everyday.">quotidien.</em>
+        </h2>
+        <p class="lede" style="margin-top: 18px" data-fr="Trois ans de chantiers, d'usine, de matière, de visages. Une sélection." data-en="Three years of worksites, factory, matter, faces. A selection.">
+          Trois ans de chantiers, d'usine, de matière, de visages. Une sélection.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery rv rv-2">
+      <figure class="g-a"><div class="ph ph--stone ph--grid"></div><span class="kicker">Dakar · 2024</span><figcaption data-fr="Voirie VRD — Boulevard du Centenaire" data-en="VRD — Boulevard du Centenaire">Voirie VRD — Boulevard du Centenaire</figcaption></figure>
+      <figure class="g-b"><div class="ph ph--forest"></div><span class="kicker">Bargny · 2025</span><figcaption data-fr="Pilote logement social 12 unités" data-en="Social housing pilot 12 units">Pilote logement social 12 unités</figcaption></figure>
+      <figure class="g-c"><div class="ph ph--clay"></div><span class="kicker">Pikine · 2024</span><figcaption data-fr="Collecteurs : la matière première" data-en="Collectors: the raw matter">Collecteurs : la matière première</figcaption></figure>
+      <figure class="g-d"><div class="ph ph--ink ph--grid"></div><span class="kicker">Usine · 2024</span><figcaption data-fr="Presse hydraulique 800 t" data-en="800 t hydraulic press">Presse hydraulique 800 t</figcaption></figure>
+      <figure class="g-e"><div class="ph ph--concrete ph--grid"></div><span class="kicker">Saly · 2025</span><figcaption data-fr="Éco-lodges balnéaires" data-en="Beachfront eco-lodges">Éco-lodges balnéaires</figcaption></figure>
+      <figure class="g-f"><div class="ph ph--stone"></div><span class="kicker">Kaolack · 2023</span><figcaption data-fr="École primaire — 6 salles" data-en="Primary school — 6 classrooms">École primaire — 6 salles</figcaption></figure>
+      <figure class="g-g"><div class="ph ph--forest ph--grid"></div><span class="kicker">Usine · 2025</span><figcaption data-fr="Quality lab — contrôle 100%" data-en="Quality lab — 100% control">Quality lab — contrôle 100%</figcaption></figure>
+      <figure class="g-h"><div class="ph ph--clay ph--grid"></div><span class="kicker">Saint-Louis · 2024</span><figcaption data-fr="Pose tampons sur corniche" data-en="Cover installation along corniche">Pose tampons sur corniche</figcaption></figure>
+      <figure class="g-i"><div class="ph ph--ink"></div><span class="kicker">Diamniadio · 2026</span><figcaption data-fr="Chantier usine n°2 — terrassement" data-en="Plant n°2 — earthworks">Chantier usine n°2 — terrassement</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="section section--warm section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Direction" data-en="Leadership">Direction</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 60px); line-height: 1.05">
+          <span data-fr="Les gens" data-en="The people">Les gens</span>
+          <em data-fr="derrière la matière." data-en="behind the matter.">derrière la matière.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="team rv rv-2">
+      <div class="teammate">
+        <div class="teammate__photo"><div class="ph ph--stone"></div></div>
+        <div class="teammate__name">Mamadou D.</div>
+        <div class="teammate__role" data-fr="Fondateur · CEO" data-en="Founder · CEO">Fondateur · CEO</div>
+      </div>
+      <div class="teammate">
+        <div class="teammate__photo"><div class="ph ph--forest"></div></div>
+        <div class="teammate__name">Aïssatou N.</div>
+        <div class="teammate__role" data-fr="Directrice technique" data-en="CTO">Directrice technique</div>
+      </div>
+      <div class="teammate">
+        <div class="teammate__photo"><div class="ph ph--clay"></div></div>
+        <div class="teammate__name">Cheikh F.</div>
+        <div class="teammate__role" data-fr="Directeur industriel" data-en="Plant director">Directeur industriel</div>
+      </div>
+      <div class="teammate">
+        <div class="teammate__photo"><div class="ph ph--concrete"></div></div>
+        <div class="teammate__name">Fatou S.</div>
+        <div class="teammate__role" data-fr="Architecte associée" data-en="Lead architect">Architecte associée</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<section class="section section--paper section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Partenaires" data-en="Partners">Partenaires</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 60px); line-height: 1.05">
+          <span data-fr="Ils nous ont fait" data-en="They have placed">Ils nous ont fait</span>
+          <em data-fr="confiance." data-en="trust in us.">confiance.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="partner-grid rv rv-2">
+      <div>ONAS</div>
+      <div>SOGIP-SA</div>
+      <div>CDC Sénégal</div>
+      <div>SAPCO</div>
+      <div>Eiffage Sénégal</div>
+      <div>CSE</div>
+      <div>Ville de Dakar</div>
+      <div>APIX</div>
+      <div>Ageroute</div>
+      <div>Sn HLM</div>
+      <div>BOAD</div>
+      <div>Proparco</div>
+      <div>UEMOA</div>
+      <div>Diamniadio Lake City</div>
+      <div>SETER</div>
+      <div>SOSEPRA</div>
+      <div>École Polytechnique Thiès</div>
+      <div>AFD</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section--ink section section--tight" style="padding: 100px 0">
+  <div class="wrap">
+    <div class="grid-12" style="align-items: end">
+      <div class="col-span-8 rv">
+        <h2 class="display" style="font-size: clamp(40px, 5.2vw, 88px); line-height:.98; color: #FAFAF6">
+          <span data-fr="Venez voir" data-en="Come and see">Venez voir</span><br/>
+          <em style="color: var(--green-bright)" data-fr="l'usine fonctionner." data-en="the plant in motion.">l'usine fonctionner.</em>
+        </h2>
+      </div>
+      <div class="col-span-4 rv rv-1" style="display:flex; flex-direction:column; align-items:flex-end; gap: 14px">
+        <a class="btn btn--green" href="contact.html"><span data-fr="Demander une visite" data-en="Request a visit">Demander une visite</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="btn btn--ghost" style="border-color: rgba(240,237,227,.4); color: #FAFAF6" href="investors.html"><span data-fr="Dossier investisseurs" data-en="Investor brief">Dossier investisseurs</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script>Citabel.mountChrome({page: 'about'});</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

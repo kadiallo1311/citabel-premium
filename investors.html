@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>CITABEL — Investisseurs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="CITABEL Série A 2026 — trajectoire industrielle, marché adressable, impact environnemental et opportunités stratégiques." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-head{
+    padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-head h1{
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 140px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 18px 0 0;
+  }
+  .page-head h1 em{ font-style: italic; color: var(--green) }
+  .breadcrumb{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute) }
+  .breadcrumb a{ color: inherit; text-decoration: none }
+
+  .deck-meta{
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    margin-top: 36px;
+  }
+  .deck-meta > div{
+    padding: 22px 0;
+    border-right: 1px solid var(--line);
+  }
+  .deck-meta > div:last-child{ border-right: 0 }
+  .deck-meta > div > div:first-child{
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+    margin-bottom: 6px;
+  }
+  .deck-meta > div > div:last-child{
+    font-family: var(--display); font-size: 24px; letter-spacing: -.01em;
+  }
+  @media (max-width: 700px){ .deck-meta{ grid-template-columns: 1fr 1fr } }
+
+  /* big number columns */
+  .opp-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .opp{
+    padding: 36px 32px 40px;
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+  .opp:nth-child(3n){ border-right: 0 }
+  .opp__num{
+    font-family: var(--display);
+    font-size: clamp(72px, 8vw, 144px);
+    line-height: .9; letter-spacing: -.03em;
+  }
+  .opp__num em{ font-style: italic; color: var(--green) }
+  .opp__num small{ font-size: 24px; color: var(--ink-mute); font-family: var(--mono); margin-left: 6px }
+  .opp__label{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute); margin: 22px 0 8px }
+  .opp__desc{ font-size: 14px; color: var(--ink-soft); max-width: 30ch; line-height: 1.55 }
+  @media (max-width: 900px){
+    .opp-grid{ grid-template-columns: 1fr }
+    .opp{ border-right: 0 }
+  }
+
+  /* trajectory chart */
+  .chart{
+    position: relative;
+    height: 380px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-top: 30px;
+  }
+  .chart__grid{
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(20,20,15,.08) 1px, transparent 1px);
+    background-size: 100% 25%;
+    pointer-events: none;
+  }
+  .chart__axis{
+    position: absolute; left: 0; right: 0; bottom: -28px;
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    color: var(--ink-mute); text-transform: uppercase;
+  }
+  .chart__bars{
+    position: absolute; left: 0; right: 0; bottom: 0; top: 0;
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    align-items: end;
+    padding: 0 6px;
+  }
+  .bar{
+    position: relative;
+    background: linear-gradient(180deg, var(--green-bright), var(--green));
+    border-radius: 4px 4px 0 0;
+    display: flex; flex-direction: column;
+    justify-content: flex-start;
+    transition: transform .5s var(--ease);
+  }
+  .bar--proj{ background: linear-gradient(180deg, var(--ink-faint), var(--ink-soft)); opacity: .85 }
+  .bar:hover{ transform: translateY(-4px) }
+  .bar__val{
+    position: absolute; top: -28px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--display); font-size: 18px;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+  }
+
+  /* timeline plan */
+  .plan{
+    display: grid; grid-template-columns: 80px 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .plan > div{
+    padding: 22px 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .plan > div:nth-child(4n){ border-right: 0 }
+  .plan__head > div{
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--line-strong) !important;
+  }
+  .plan h4{
+    font-family: var(--display); font-size: clamp(22px, 2vw, 30px);
+    line-height: 1; letter-spacing: -.01em; margin: 0 0 8px;
+  }
+  .plan h4 em{ color: var(--green); font-style: italic }
+  .plan p{ font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; margin: 6px 0 0; max-width: 40ch }
+  .plan__year{
+    font-family: var(--mono); font-size: 13px; letter-spacing:.12em; color: var(--ink); padding-top: 26px;
+  }
+  @media (max-width: 800px){
+    .plan{ grid-template-columns: 60px 1fr }
+    .plan > div:nth-child(4n){ border-right: 1px solid var(--line) }
+    .plan > div:nth-child(odd){ border-right: 0 }
+    .plan__head{ display: none }
+  }
+
+  /* impact */
+  .impact{
+    background: var(--ink); color: #EFEDE5;
+    padding: clamp(80px, 10vw, 130px) 0;
+  }
+  .impact .eyebrow{ color: rgba(240,237,227,.6) }
+  .impact .eyebrow::before{ background: rgba(240,237,227,.6) }
+  .impact h2{ color: #FAFAF6 }
+  .impact h2 em{ color: var(--green-bright) }
+  .impact-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(240,237,227,.12);
+    margin-top: 50px;
+  }
+  .impact-cell{
+    padding: 30px 28px 36px;
+    border-right: 1px solid rgba(240,237,227,.12);
+  }
+  .impact-cell:last-child{ border-right: 0 }
+  .impact-cell__num{
+    font-family: var(--display); font-size: clamp(56px, 6vw, 96px);
+    line-height: .95; letter-spacing: -.02em; color: #FAFAF6;
+  }
+  .impact-cell__num em{ color: var(--green-bright); font-style: italic }
+  .impact-cell__label{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: rgba(240,237,227,.6); margin: 20px 0 8px }
+  .impact-cell__desc{ font-size: 14px; line-height: 1.55; color: rgba(240,237,227,.75); max-width: 32ch }
+  @media (max-width: 900px){
+    .impact-grid{ grid-template-columns: 1fr }
+    .impact-cell{ border-right: 0; border-bottom: 1px solid rgba(240,237,227,.12) }
+  }
+
+  .quote-card{
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 50px 60px;
+    background: var(--paper);
+    position: relative;
+  }
+  .quote-card::before{
+    content: "“";
+    position: absolute; left: 36px; top: 10px;
+    font-family: var(--display); font-size: 120px; line-height: 1;
+    color: var(--green);
+  }
+  .quote-card blockquote{
+    margin: 0 0 30px 0;
+    font-family: var(--display);
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.35;
+    letter-spacing: -.005em;
+    max-width: 38ch;
+  }
+  .quote-card cite{
+    font-style: normal;
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#14140F" /></head>
+<body data-page="investors">
+<div data-slot="nav"></div>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb"><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <span data-fr="Investisseurs" data-en="Investors">Investisseurs</span></nav>
+    <h1 class="rv"><span data-fr="Série A 2026." data-en="Series A 2026.">Série A 2026.</span><br/><em data-fr="Industrialiser le continent." data-en="Industrialising the continent.">Industrialiser le continent.</em></h1>
+    <div class="deck-meta rv rv-1">
+      <div>
+        <div data-fr="Tour en cours" data-en="Round">Tour en cours</div>
+        <div>Série A · 12 M€</div>
+      </div>
+      <div>
+        <div data-fr="Engagés à ce jour" data-en="Committed">Engagés à ce jour</div>
+        <div>4,2 M€</div>
+      </div>
+      <div>
+        <div data-fr="Lead" data-en="Lead investor">Lead</div>
+        <div data-fr="Sous discussion" data-en="Under discussion">Sous discussion</div>
+      </div>
+      <div>
+        <div data-fr="Closing visé" data-en="Target close">Closing visé</div>
+        <div>Q3 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THESIS ============ -->
+<section class="section section--tight section--paper">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-span-4 rv">
+        <span class="eyebrow"><span data-fr="Thèse" data-en="Thesis">Thèse</span></span>
+      </div>
+      <div class="col-span-8 rv rv-1">
+        <p class="display" style="font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; max-width: 28ch">
+          <span data-fr="L'Afrique urbaine produira " data-en="Urban Africa will generate ">L'Afrique urbaine produira </span>
+          <em data-fr="220 millions de tonnes de déchets plastiques" data-en="220 million tonnes of plastic waste">220 millions de tonnes de déchets plastiques</em>
+          <span data-fr=" d'ici 2050. Et 1,4 milliard de mètres carrés de logements en plus à construire. CITABEL transforme les deux problèmes en une seule chaîne de valeur." data-en=" by 2050. And 1.4 billion m² of new housing to build. CITABEL turns both problems into a single value chain."> d'ici 2050. Et 1,4 milliard de mètres carrés de logements en plus à construire. CITABEL transforme les deux problèmes en une seule chaîne de valeur.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPPORTUNITIES ============ -->
+<section class="section section--warm">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Marché" data-en="Market">Marché</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(40px, 5vw, 76px); line-height: 1.02">
+          <span data-fr="Trois marchés," data-en="Three markets,">Trois marchés,</span>
+          <em data-fr="une seule usine." data-en="one plant.">une seule usine.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="opp-grid rv rv-2">
+      <div class="opp">
+        <div class="opp__num"><em>4,2</em><small> Md€</small></div>
+        <div class="opp__label" data-fr="Marché voirie CEDEAO 2030" data-en="ECOWAS roadworks market 2030">Marché voirie CEDEAO 2030</div>
+        <p class="opp__desc" data-fr="Tampons, grilles, regards, équipements de bordure. Croissance 8% par an, captif local non encore servi." data-en="Covers, grates, chambers, edge equipment. 8% YoY growth, local captive market underserved.">Tampons, grilles, regards, équipements de bordure. Croissance 8% par an, captif local non encore servi.</p>
+      </div>
+      <div class="opp">
+        <div class="opp__num"><em>38</em><small> Md€</small></div>
+        <div class="opp__label" data-fr="Logement social Afrique de l'Ouest 2030" data-en="West Africa social housing 2030">Logement social Afrique de l'Ouest 2030</div>
+        <p class="opp__desc" data-fr="Déficit cumulé : 11 millions d'unités. Programmes publics sénégalais, ivoirien, ghanéen et béninois validés." data-en="Cumulative deficit: 11 million units. Validated public programs in Senegal, Côte d'Ivoire, Ghana, Benin.">Déficit cumulé : 11 millions d'unités. Programmes publics sénégalais, ivoirien, ghanéen et béninois validés.</p>
+      </div>
+      <div class="opp">
+        <div class="opp__num"><em>220</em><small> Mt</small></div>
+        <div class="opp__label" data-fr="Plastique africain à recycler 2050" data-en="African plastic to recycle 2050">Plastique africain à recycler 2050</div>
+        <p class="opp__desc" data-fr="Valorisation matière à coût négatif (les municipalités paient pour le retrait). Boucle fermée scalable par licence." data-en="Negative-cost material recovery (municipalities pay for removal). Closed loop scalable by license.">Valorisation matière à coût négatif (les municipalités paient pour le retrait). Boucle fermée scalable par licence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAJECTORY ============ -->
+<section class="section section--paper">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Trajectoire" data-en="Trajectory">Trajectoire</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 60px); line-height: 1.02">
+          <span data-fr="Capacité installée," data-en="Installed capacity,">Capacité installée,</span>
+          <em data-fr="en tonnes/an." data-en="in tonnes/year.">en tonnes/an.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="rv rv-2">
+      <div class="chart">
+        <div class="chart__grid"></div>
+        <div class="chart__bars">
+          <div class="bar" style="height: 8%"><span class="bar__val">120</span></div>
+          <div class="bar" style="height: 28%"><span class="bar__val">580</span></div>
+          <div class="bar" style="height: 50%"><span class="bar__val">1 240</span></div>
+          <div class="bar bar--proj" style="height: 68%"><span class="bar__val">2 800</span></div>
+          <div class="bar bar--proj" style="height: 86%"><span class="bar__val">5 400</span></div>
+          <div class="bar bar--proj" style="height: 100%"><span class="bar__val">9 800</span></div>
+        </div>
+        <div class="chart__axis">
+          <span>2023</span><span>2024</span><span>2025</span><span>2026</span><span>2028</span><span>2030</span>
+        </div>
+      </div>
+      <p style="margin-top: 50px; max-width: 60ch; color: var(--ink-mute); font-size: 13px; line-height: 1.6" data-fr="Capacité réelle (vert) jusqu'à 2025 inclus. Projections (gris) sur la base du plan d'industrialisation Série A : ouverture site Diamniadio (2027), licences usine Abidjan et Bamako (2028), site n°3 Lomé (2029)." data-en="Actual capacity (green) through 2025. Projections (grey) based on Series A industrial plan: Diamniadio plant (2027), Abidjan and Bamako plant licenses (2028), plant n°3 Lomé (2029).">
+        Capacité réelle (vert) jusqu'à 2025 inclus. Projections (gris) sur la base du plan d'industrialisation Série A : ouverture site Diamniadio (2027), licences usine Abidjan et Bamako (2028), site n°3 Lomé (2029).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLAN ============ -->
+<section class="section section--warm section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Plan d'industrialisation" data-en="Industrial plan">Plan d'industrialisation</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 60px); line-height: 1.02">
+          <span data-fr="Cinq jalons" data-en="Five milestones">Cinq jalons</span>
+          <em data-fr="pour multiplier par huit." data-en="to multiply by eight.">pour multiplier par huit.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="plan rv rv-2">
+      <div class="plan__head"><div></div></div>
+      <div class="plan__head"><div data-fr="Jalon" data-en="Milestone">Jalon</div></div>
+      <div class="plan__head"><div data-fr="Investissement" data-en="Investment">Investissement</div></div>
+      <div class="plan__head"><div data-fr="Effet attendu" data-en="Expected effect">Effet attendu</div></div>
+
+      <div class="plan__year">2026</div>
+      <div><h4><em data-fr="Automatisation." data-en="Automation.">Automatisation.</em></h4><p data-fr="Ligne IA contrôle qualité, robot de palettisation, presse n°2." data-en="AI quality-control line, palletising robot, press n°2.">Ligne IA contrôle qualité, robot de palettisation, presse n°2.</p></div>
+      <div><h4>2,4 M€</h4><p data-fr="Capex Dakar." data-en="Dakar capex.">Capex Dakar.</p></div>
+      <div><h4>×2 <span data-fr="capacité" data-en="capacity">capacité</span></h4></div>
+
+      <div class="plan__year">2027</div>
+      <div><h4><em data-fr="Usine Diamniadio." data-en="Diamniadio plant.">Usine Diamniadio.</em></h4><p data-fr="6 000 m², 5 lignes, 80 emplois directs. Hub logistique national." data-en="6,000 m², 5 lines, 80 direct jobs. National logistics hub.">6 000 m², 5 lignes, 80 emplois directs. Hub logistique national.</p></div>
+      <div><h4>5,6 M€</h4><p data-fr="Capex + foncier." data-en="Capex + land.">Capex + foncier.</p></div>
+      <div><h4>×3,5 <span data-fr="capacité" data-en="capacity">capacité</span></h4></div>
+
+      <div class="plan__year">2028</div>
+      <div><h4><em data-fr="Licence Abidjan." data-en="Abidjan license.">Licence Abidjan.</em></h4><p data-fr="Modèle franchisé. Partenaire BTP local. Matière premiere Côte d'Ivoire." data-en="Franchised model. Local construction partner. Raw matter Côte d'Ivoire.">Modèle franchisé. Partenaire BTP local. Matière premiere Côte d'Ivoire.</p></div>
+      <div><h4>1,8 M€</h4><p data-fr="Equity + royalties." data-en="Equity + royalties.">Equity + royalties.</p></div>
+      <div><h4>×5 <span data-fr="capacité" data-en="capacity">capacité</span></h4></div>
+
+      <div class="plan__year">2029</div>
+      <div><h4><em data-fr="R&D matériaux." data-en="Materials R&D.">R&D matériaux.</em></h4><p data-fr="Composite renforcé fibre de typha. Briques structurelles R+2. Tuiles photovoltaïques." data-en="Typha-fibre reinforced composite. Structural R+2 bricks. Photovoltaic tiles.">Composite renforcé fibre de typha. Briques structurelles R+2. Tuiles photovoltaïques.</p></div>
+      <div><h4>1,2 M€</h4><p>R&D Opex.</p></div>
+      <div><h4 data-fr="Nouvelle gamme" data-en="New range">Nouvelle gamme</h4></div>
+
+      <div class="plan__year">2030</div>
+      <div><h4><em data-fr="Continental." data-en="Continental.">Continental.</em></h4><p data-fr="Présence dans 14 pays : 3 usines en propre, 11 licences. Cotation BRVM ou ECP." data-en="14-country presence: 3 owned plants, 11 licenses. BRVM or ECP listing.">Présence dans 14 pays : 3 usines en propre, 11 licences. Cotation BRVM ou ECP.</p></div>
+      <div><h4>1,0 M€</h4><p data-fr="Structuration." data-en="Structuring.">Structuration.</p></div>
+      <div><h4>×8 <span data-fr="capacité" data-en="capacity">capacité</span></h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT ============ -->
+<section class="impact">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Impact 2030" data-en="2030 impact">Impact 2030</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(40px, 5.2vw, 80px); line-height: 1.02">
+          <span data-fr="Trois nombres" data-en="Three numbers">Trois nombres</span><br/>
+          <em data-fr="qu'aucun rapport ESG ne sait inventer." data-en="no ESG report could invent.">qu'aucun rapport ESG ne sait inventer.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="impact-grid rv rv-2">
+      <div class="impact-cell">
+        <div class="impact-cell__num"><em>92 000</em></div>
+        <div class="impact-cell__label" data-fr="Tonnes de plastique recyclées (cumul)" data-en="Tonnes of plastic recycled (cumulative)">Tonnes de plastique recyclées (cumul)</div>
+        <p class="impact-cell__desc" data-fr="Soit l'équivalent de 4,6 milliards de bouteilles d'1,5 L. À comparer aux 350 000 T qui terminent chaque année dans l'océan Atlantique depuis l'Afrique de l'Ouest." data-en="The equivalent of 4.6 billion 1.5 L bottles. Compared to the 350,000 T entering the Atlantic from West Africa annually.">
+          Soit l'équivalent de 4,6 milliards de bouteilles d'1,5 L. À comparer aux 350 000 T qui terminent chaque année dans l'océan Atlantique depuis l'Afrique de l'Ouest.
+        </p>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-cell__num"><em>4 500</em></div>
+        <div class="impact-cell__label" data-fr="Emplois créés (directs + filière)" data-en="Jobs created (direct + supply chain)">Emplois créés (directs + filière)</div>
+        <p class="impact-cell__desc" data-fr="320 emplois industriels qualifiés, 4 200 collecteurs structurés en coopératives. Salaires moyens 1,8× SMIG national." data-en="320 skilled industrial jobs, 4,200 collectors organised in cooperatives. Average wage 1.8× national SMIG.">
+          320 emplois industriels qualifiés, 4 200 collecteurs structurés en coopératives. Salaires moyens 1,8× SMIG national.
+        </p>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-cell__num"><em>−180</em></div>
+        <div class="impact-cell__label" data-fr="Kilotonnes CO₂ évitées" data-en="CO₂ kilotonnes avoided">Kilotonnes CO₂ évitées</div>
+        <p class="impact-cell__desc" data-fr="Vs scénario business-as-usual fonte importée + parpaing ciment. Méthode AFNOR 2050, vérification tierce DNV." data-en="Vs. business-as-usual imported iron + cement block scenario. AFNOR 2050 method, DNV third-party verification.">
+          Vs scénario business-as-usual fonte importée + parpaing ciment. Méthode AFNOR 2050, vérification tierce DNV.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="section section--warm">
+  <div class="wrap">
+    <div class="quote-card rv">
+      <blockquote data-fr="« CITABEL n'est pas un projet écologique. C'est un projet industriel qui se trouve avoir un impact écologique massif. C'est exactement la différence que cherchent les bailleurs sérieux. »" data-en="“CITABEL is not an ecological project. It's an industrial project that happens to have massive ecological impact. That is exactly the distinction serious lenders look for.”">
+        « CITABEL n'est pas un projet écologique. C'est un projet industriel qui se trouve avoir un impact écologique massif. C'est exactement la différence que cherchent les bailleurs sérieux. »
+      </blockquote>
+      <cite>Note d'analyse Proparco — 12 mars 2026</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section--ink section section--tight" style="padding: 100px 0">
+  <div class="wrap">
+    <div class="grid-12" style="align-items: end">
+      <div class="col-span-8 rv">
+        <h2 class="display" style="font-size: clamp(40px, 5.2vw, 88px); line-height:.98; color: #FAFAF6">
+          <span data-fr="Recevoir le" data-en="Receive the">Recevoir le</span><br/>
+          <em style="color: var(--green-bright)" data-fr="data room complet." data-en="full data room.">data room complet.</em>
+        </h2>
+      </div>
+      <div class="col-span-4 rv rv-1" style="display:flex; flex-direction:column; align-items:flex-end; gap: 14px">
+        <a class="btn btn--green" href="contact.html#investors"><span data-fr="Demander un accès" data-en="Request access">Demander un accès</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="btn btn--ghost" style="border-color: rgba(240,237,227,.4); color: #FAFAF6" href="technology.html"><span data-fr="Dossier technique" data-en="Technical brief">Dossier technique</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script>Citabel.mountChrome({page: 'investors'});</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

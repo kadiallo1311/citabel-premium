@@ -1,0 +1,601 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>CITABEL — Solutions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Tampons de regards, grilles avaloirs, regards hydrauliques, briques emboîtables, logements modulaires — toute la gamme CITABEL." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  /* page header */
+  .page-head{
+    padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-head h1{
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 140px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 18px 0 0;
+  }
+  .page-head h1 em{ font-style: italic; color: var(--green) }
+  .page-head__bar{
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 30px; align-items: end;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+  }
+  .breadcrumb{
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .breadcrumb a{ color: var(--ink-mute); text-decoration:none }
+  .breadcrumb a:hover{ color: var(--ink) }
+
+  /* anchored category nav */
+  .cat-nav{
+    position: sticky; top: 64px; z-index: 30;
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .cat-nav__inner{
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 16px var(--gutter);
+    display: flex; gap: 0; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .cat-nav__inner a{
+    padding: 8px 18px;
+    color: var(--ink-mute); text-decoration: none;
+    border-right: 1px solid var(--line);
+    transition: color .2s var(--ease);
+  }
+  .cat-nav__inner a:first-child{ padding-left: 0 }
+  .cat-nav__inner a:last-child{ border-right: 0 }
+  .cat-nav__inner a:hover{ color: var(--ink) }
+
+  /* product row */
+  .product{
+    padding: clamp(70px, 10vw, 140px) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .product__grid{
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: clamp(40px, 6vw, 80px); align-items: center;
+  }
+  .product--flip .product__grid{ direction: rtl }
+  .product--flip .product__grid > *{ direction: ltr }
+  .product__visual{
+    aspect-ratio: 4/3;
+    border-radius: var(--r-md);
+    position: relative; overflow: hidden;
+    background: var(--bg-warm);
+  }
+  .product__num{
+    font-family: var(--mono); font-size: 12px; letter-spacing:.14em;
+    color: var(--ink-mute); text-transform: uppercase;
+  }
+  .product__title{
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 76px);
+    line-height: 1; letter-spacing: -.02em;
+    margin: 16px 0 22px;
+  }
+  .product__title em{ font-style: italic; color: var(--green) }
+  .product__desc{ font-size: 17px; color: var(--ink-soft); max-width: 50ch; line-height:1.55 }
+  .specs{
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .spec{
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr auto; align-items: baseline;
+    font-size: 14px;
+  }
+  .spec:nth-child(odd){ padding-right: 24px }
+  .spec:nth-child(even){ padding-left: 24px; border-left: 1px solid var(--line) }
+  .spec__k{ font-family: var(--mono); font-size: 11px; letter-spacing:.12em; text-transform: uppercase; color: var(--ink-mute) }
+  .spec__v{ font-family: var(--display); font-size: 18px; letter-spacing: -.005em }
+
+  .badges{ display:flex; gap:8px; flex-wrap:wrap; margin: 22px 0 0 }
+  .badge{
+    border: 1px solid var(--line-strong);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .badge--green{ background: var(--green); color: #F0EEE5; border-color: var(--green) }
+
+  @media (max-width: 900px){
+    .product__grid{ grid-template-columns: 1fr }
+    .product--flip .product__grid{ direction: ltr }
+    .specs{ grid-template-columns: 1fr }
+    .spec:nth-child(even){ padding-left: 0; border-left: 0 }
+    .spec:nth-child(odd){ padding-right: 0 }
+  }
+
+  /* manhole svg */
+  .manhole{
+    width: 78%; max-width: 480px; aspect-ratio: 1;
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform .6s var(--ease);
+  }
+  .product:hover .manhole{ transform: translate(-50%, -50%) rotate(8deg) scale(1.03) }
+
+  /* brick svg */
+  .brickwall{ width: 90%; max-width: 520px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) }
+
+  /* compare table */
+  .compare{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+  }
+  .compare th, .compare td{
+    text-align: left;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    vertical-align: top;
+  }
+  .compare th{
+    font-family: var(--mono); font-size: 10px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+    font-weight: 400;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .compare td:first-child{ font-family: var(--display); font-size: 18px; color: var(--ink) }
+  .compare td.good{ color: var(--green) }
+  .compare td.bad{ color: var(--ink-mute) }
+  .compare tr:hover{ background: rgba(20,20,15,.02) }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#14140F" /></head>
+<body data-page="solutions">
+
+<div data-slot="nav"></div>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb"><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a> &nbsp;/&nbsp; <span data-fr="Solutions" data-en="Solutions">Solutions</span></nav>
+    <h1 class="rv"><span data-fr="Une gamme. Deux échelles." data-en="One range. Two scales.">Une gamme.</span><br/><em data-fr="Une matière commune." data-en="Two scales.">Deux échelles.</em></h1>
+    <div class="page-head__bar rv rv-1">
+      <p class="lede" data-fr="De la grille avaloir à la maison clé en main : tout est issu de la même matière première recyclée. Cinq produits, deux marchés, un seul procédé." data-en="From the gully grate to the turnkey home: everything comes from the same recycled raw matter. Five products, two markets, one single process.">
+        De la grille avaloir à la maison clé en main : tout est issu de la même matière première recyclée. Cinq produits, deux marchés, un seul procédé.
+      </p>
+      <a class="btn btn--primary" href="contact.html#devis">
+        <span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAT NAV ============ -->
+<nav class="cat-nav">
+  <div class="cat-nav__inner">
+    <a href="#tampons">01 — <span data-fr="Tampons de regards" data-en="Manhole covers">Tampons de regards</span></a>
+    <a href="#grilles">02 — <span data-fr="Grilles avaloirs" data-en="Gully grates">Grilles avaloirs</span></a>
+    <a href="#regards">03 — <span data-fr="Regards hydrauliques" data-en="Hydraulic chambers">Regards hydrauliques</span></a>
+    <a href="#briques">04 — <span data-fr="Briques emboîtables" data-en="Interlocking bricks">Briques emboîtables</span></a>
+    <a href="#logements">05 — <span data-fr="Logements modulaires" data-en="Modular homes">Logements modulaires</span></a>
+  </div>
+</nav>
+
+<!-- ============ 01 — TAMPONS ============ -->
+<section class="product" id="tampons">
+  <div class="wrap">
+    <div class="product__grid">
+      <div class="rv">
+        <span class="product__num">01 / <span data-fr="Voirie" data-en="Roadworks">Voirie</span></span>
+        <h2 class="product__title"><em data-fr="Tampons" data-en="Manhole">Tampons</em> <span data-fr="de regards composites." data-en="covers, composite.">de regards composites.</span></h2>
+        <p class="product__desc" data-fr="Remplacement direct de la fonte ductile, sans compromis sur la classe mécanique. Trois fois plus légers, insensibles à la corrosion, sans valeur de revente : la fin des vols nocturnes." data-en="A direct replacement for ductile iron, with no compromise on mechanical class. Three times lighter, immune to corrosion, no resale value: the end of nighttime theft.">
+          Remplacement direct de la fonte ductile, sans compromis sur la classe mécanique. Trois fois plus légers, insensibles à la corrosion, sans valeur de revente : la fin des vols nocturnes.
+        </p>
+        <div class="badges">
+          <span class="badge badge--green">EN 124 — D400</span>
+          <span class="badge" data-fr="Antivol" data-en="Theft-proof">Antivol</span>
+          <span class="badge" data-fr="Anticorrosion" data-en="Anticorrosion">Anticorrosion</span>
+          <span class="badge" data-fr="-65% CO₂" data-en="-65% CO₂">-65% CO₂</span>
+        </div>
+        <div class="specs">
+          <div class="spec"><span class="spec__k" data-fr="Charge admissible" data-en="Load capacity">Charge admissible</span><span class="spec__v">40 t</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Poids unitaire" data-en="Unit weight">Poids unitaire</span><span class="spec__v">22 kg</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Diamètre" data-en="Diameter">Diamètre</span><span class="spec__v">Ø 600 mm</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Délai de pose" data-en="Install time">Délai de pose</span><span class="spec__v">8 min</span></div>
+        </div>
+      </div>
+      <div class="rv rv-1">
+        <div class="product__visual">
+          <div class="ph ph--ink ph--grid" data-label="MANHOLE / D400"></div>
+          <svg class="manhole" viewBox="0 0 400 400" aria-hidden="true">
+            <defs>
+              <radialGradient id="iron2" cx="50%" cy="40%" r="55%">
+                <stop offset="0%" stop-color="#3A3933"/>
+                <stop offset="100%" stop-color="#0A0A07"/>
+              </radialGradient>
+              <pattern id="dot" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.4" fill="#5C5950"/>
+              </pattern>
+            </defs>
+            <circle cx="200" cy="200" r="180" fill="url(#iron2)" stroke="#4A463E" stroke-width="2"/>
+            <circle cx="200" cy="200" r="160" fill="none" stroke="#5C5950" stroke-width="1"/>
+            <circle cx="200" cy="200" r="140" fill="url(#dot)" opacity=".6"/>
+            <g stroke="#9C988B" stroke-width="1.5" fill="none" opacity=".9">
+              <circle cx="200" cy="200" r="120"/>
+              <circle cx="200" cy="200" r="90"/>
+              <circle cx="200" cy="200" r="60"/>
+              <circle cx="200" cy="200" r="30"/>
+              <g>
+                <line x1="80" y1="200" x2="320" y2="200"/>
+                <line x1="200" y1="80" x2="200" y2="320"/>
+                <line x1="115" y1="115" x2="285" y2="285"/>
+                <line x1="285" y1="115" x2="115" y2="285"/>
+              </g>
+            </g>
+            <circle cx="200" cy="200" r="20" fill="#0A0A07" stroke="#C8541A" stroke-width="1.5"/>
+            <text x="200" y="205" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="#C8541A">CITABEL</text>
+            <text x="200" y="350" text-anchor="middle" font-family="Geist Mono" font-size="10" letter-spacing="3" fill="#9C988B">D400 · EN 124 · SN</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 — GRILLES ============ -->
+<section class="product product--flip" id="grilles" style="background: var(--paper)">
+  <div class="wrap">
+    <div class="product__grid">
+      <div class="rv">
+        <span class="product__num">02 / <span data-fr="Assainissement" data-en="Drainage">Assainissement</span></span>
+        <h2 class="product__title"><em data-fr="Grilles" data-en="Gully">Grilles</em> <span data-fr="avaloirs & caniveaux." data-en="grates & channels.">avaloirs & caniveaux.</span></h2>
+        <p class="product__desc" data-fr="Pour le drainage urbain saisonnier — résistantes au sable, à l'hivernage, à l'eau saumâtre. Sections rectangulaires, carrées et linéaires. Visse-en-place, démontables sans outil spécifique." data-en="For seasonal urban drainage — resistant to sand, monsoon rain, brackish water. Rectangular, square and linear sections. Bolted in place, removable without specialised tools.">
+          Pour le drainage urbain saisonnier — résistantes au sable, à l'hivernage, à l'eau saumâtre. Sections rectangulaires, carrées et linéaires. Visse-en-place, démontables sans outil spécifique.
+        </p>
+        <div class="badges">
+          <span class="badge badge--green">EN 124 — C250</span>
+          <span class="badge" data-fr="Eau saumâtre" data-en="Brackish water">Eau saumâtre</span>
+          <span class="badge" data-fr="Hivernage" data-en="Monsoon">Hivernage</span>
+        </div>
+        <div class="specs">
+          <div class="spec"><span class="spec__k" data-fr="Sections" data-en="Sections">Sections</span><span class="spec__v">400×400 → 1200×400</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Surface libre" data-en="Free area">Surface libre</span><span class="spec__v">42%</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Charge" data-en="Load">Charge</span><span class="spec__v">25 t</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Garantie" data-en="Warranty">Garantie</span><span class="spec__v">10 ans</span></div>
+        </div>
+      </div>
+      <div class="rv rv-1">
+        <div class="product__visual">
+          <div class="ph ph--concrete" data-label="GULLY / C250"></div>
+          <svg style="width:78%; max-width:480px; position:absolute; left:50%; top:50%; transform: translate(-50%,-50%)" viewBox="0 0 400 300" aria-hidden="true">
+            <rect x="40" y="60" width="320" height="180" rx="4" fill="#2A2A22" stroke="#0A0A07" stroke-width="2"/>
+            <!-- bars -->
+            <g fill="#4A463E" stroke="#0A0A07" stroke-width="1">
+              <rect x="56" y="76" width="24" height="148"/>
+              <rect x="92" y="76" width="24" height="148"/>
+              <rect x="128" y="76" width="24" height="148"/>
+              <rect x="164" y="76" width="24" height="148"/>
+              <rect x="200" y="76" width="24" height="148"/>
+              <rect x="236" y="76" width="24" height="148"/>
+              <rect x="272" y="76" width="24" height="148"/>
+              <rect x="308" y="76" width="24" height="148"/>
+              <rect x="344" y="76" width="0" height="148"/>
+            </g>
+            <text x="200" y="270" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="#9C988B">CITABEL · GA-1200 · C250</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 — REGARDS HYDRAULIQUES ============ -->
+<section class="product" id="regards">
+  <div class="wrap">
+    <div class="product__grid">
+      <div class="rv">
+        <span class="product__num">03 / <span data-fr="Hydraulique" data-en="Hydraulics">Hydraulique</span></span>
+        <h2 class="product__title"><em data-fr="Regards" data-en="Hydraulic">Regards</em> <span data-fr="hydrauliques préfabriqués." data-en="chambers, prefabricated.">hydrauliques préfabriqués.</span></h2>
+        <p class="product__desc" data-fr="Boîtes de visite et regards de branchement préfabriqués en composite recyclé. Pose à sec, étanchéité par joint torique, équipement complet (échelons, tampon, raccord PVC)." data-en="Inspection and connection chambers prefabricated in recycled composite. Dry installation, O-ring tightness, fully equipped (steps, cover, PVC fitting).">
+          Boîtes de visite et regards de branchement préfabriqués en composite recyclé. Pose à sec, étanchéité par joint torique, équipement complet (échelons, tampon, raccord PVC).
+        </p>
+        <div class="badges">
+          <span class="badge badge--green" data-fr="Étanche IP67" data-en="IP67 sealed">Étanche IP67</span>
+          <span class="badge" data-fr="Pose 1 jour" data-en="1-day install">Pose 1 jour</span>
+          <span class="badge" data-fr="50 ans" data-en="50-year life">50 ans</span>
+        </div>
+        <div class="specs">
+          <div class="spec"><span class="spec__k" data-fr="Profondeurs" data-en="Depths">Profondeurs</span><span class="spec__v">60 → 200 cm</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Sections" data-en="Sections">Sections</span><span class="spec__v">Ø600 / 800×800</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Étanchéité" data-en="Sealing">Étanchéité</span><span class="spec__v">EPDM</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Charge surface" data-en="Surface load">Charge surface</span><span class="spec__v">D400</span></div>
+        </div>
+      </div>
+      <div class="rv rv-1">
+        <div class="product__visual" style="background:#1A1A14">
+          <div class="ph ph--ink ph--grid" data-label="HYDRAULIC CHAMBER"></div>
+          <svg style="width:72%; max-width:420px; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%)" viewBox="0 0 400 400" aria-hidden="true">
+            <!-- cutaway -->
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#4A463E" stroke-width="2"/>
+              </pattern>
+            </defs>
+            <!-- soil -->
+            <rect x="20" y="80" width="360" height="280" fill="url(#hatch)" opacity=".6"/>
+            <!-- chamber -->
+            <rect x="100" y="80" width="200" height="280" fill="#0A0A07" stroke="#9C988B" stroke-width="1.5"/>
+            <!-- inner -->
+            <rect x="120" y="100" width="160" height="240" fill="#2A2A22" stroke="#5C5950" stroke-width="1"/>
+            <!-- cover -->
+            <rect x="100" y="60" width="200" height="20" fill="#5C8270" stroke="#0A0A07" stroke-width="1"/>
+            <!-- inlet/outlet -->
+            <rect x="60" y="200" width="60" height="40" fill="#3A3933" stroke="#9C988B"/>
+            <rect x="280" y="240" width="60" height="40" fill="#3A3933" stroke="#9C988B"/>
+            <!-- water -->
+            <rect x="120" y="300" width="160" height="40" fill="#5C8270" opacity=".6"/>
+            <!-- ladder -->
+            <g stroke="#C8541A" stroke-width="1.5" fill="none">
+              <line x1="260" y1="120" x2="260" y2="320"/>
+              <line x1="270" y1="120" x2="270" y2="320"/>
+              <line x1="260" y1="140" x2="270" y2="140"/>
+              <line x1="260" y1="180" x2="270" y2="180"/>
+              <line x1="260" y1="220" x2="270" y2="220"/>
+              <line x1="260" y1="260" x2="270" y2="260"/>
+              <line x1="260" y1="300" x2="270" y2="300"/>
+            </g>
+            <text x="200" y="380" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="#9C988B">CUTAWAY · CITABEL RH-800</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 — BRIQUES ============ -->
+<section class="product product--flip" id="briques" style="background: var(--bg-warm)">
+  <div class="wrap">
+    <div class="product__grid">
+      <div class="rv">
+        <span class="product__num">04 / <span data-fr="Habitat" data-en="Housing">Habitat</span></span>
+        <h2 class="product__title"><em data-fr="Briques" data-en="Interlocking">Briques</em> <span data-fr="emboîtables recyclées." data-en="bricks, recycled.">emboîtables recyclées.</span></h2>
+        <p class="product__desc" data-fr="Le LEGO du bâtiment. Les briques s'emboîtent sans mortier grâce à un système de tenons et mortaises calibré au demi-millimètre. Un mur monte en un quart du temps. Démontable, redéployable." data-en="The LEGO of construction. Bricks interlock without mortar through tenon-and-mortise joints calibrated to the half-millimetre. A wall rises in a quarter of the time. Dismountable, redeployable.">
+          Le LEGO du bâtiment. Les briques s'emboîtent sans mortier grâce à un système de tenons et mortaises calibré au demi-millimètre. Un mur monte en un quart du temps. Démontable, redéployable.
+        </p>
+        <div class="badges">
+          <span class="badge badge--green" data-fr="Zéro mortier" data-en="Mortar-free">Zéro mortier</span>
+          <span class="badge" data-fr="R 60 min feu" data-en="R 60 min fire">R 60 min feu</span>
+          <span class="badge" data-fr="Démontable" data-en="Dismountable">Démontable</span>
+          <span class="badge" data-fr="Isolant" data-en="Insulating">Isolant</span>
+        </div>
+        <div class="specs">
+          <div class="spec"><span class="spec__k" data-fr="Dimensions" data-en="Dimensions">Dimensions</span><span class="spec__v">300 × 150 × 100</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Poids" data-en="Weight">Poids</span><span class="spec__v">3,8 kg</span></div>
+          <div class="spec"><span class="spec__k" data-fr="λ thermique" data-en="λ thermal">λ thermique</span><span class="spec__v">0,28 W/m·K</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Compression" data-en="Compression">Compression</span><span class="spec__v">14 MPa</span></div>
+        </div>
+      </div>
+      <div class="rv rv-1">
+        <div class="product__visual">
+          <div class="ph ph--clay" data-label="INTERLOCKING BRICK"></div>
+          <svg class="brickwall" viewBox="0 0 500 400" aria-hidden="true">
+            <!-- isometric stack of bricks -->
+            <defs>
+              <linearGradient id="brick" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#C9A77D"/>
+                <stop offset="1" stop-color="#7A4D2A"/>
+              </linearGradient>
+              <linearGradient id="brickDark" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8A6244"/>
+                <stop offset="1" stop-color="#3A1E0F"/>
+              </linearGradient>
+            </defs>
+            <g stroke="#2A1207" stroke-width="1.2">
+              <!-- bottom row -->
+              <g transform="translate(50, 300)">
+                <path d="M0 0 L80 -40 L160 0 L80 40 Z" fill="url(#brick)"/>
+                <path d="M0 0 L0 30 L80 70 L80 40 Z" fill="url(#brickDark)"/>
+                <path d="M160 0 L160 30 L80 70 L80 40 Z" fill="#5C3A1E"/>
+                <!-- tenon -->
+                <ellipse cx="50" cy="-15" rx="14" ry="6" fill="#8A6244"/>
+                <ellipse cx="110" cy="-35" rx="14" ry="6" fill="#8A6244"/>
+              </g>
+              <g transform="translate(170, 300)">
+                <path d="M0 0 L80 -40 L160 0 L80 40 Z" fill="url(#brick)"/>
+                <path d="M0 0 L0 30 L80 70 L80 40 Z" fill="url(#brickDark)"/>
+                <path d="M160 0 L160 30 L80 70 L80 40 Z" fill="#5C3A1E"/>
+                <ellipse cx="50" cy="-15" rx="14" ry="6" fill="#8A6244"/>
+                <ellipse cx="110" cy="-35" rx="14" ry="6" fill="#8A6244"/>
+              </g>
+              <!-- middle row (offset) -->
+              <g transform="translate(110, 220)">
+                <path d="M0 0 L80 -40 L160 0 L80 40 Z" fill="url(#brick)"/>
+                <path d="M0 0 L0 30 L80 70 L80 40 Z" fill="url(#brickDark)"/>
+                <path d="M160 0 L160 30 L80 70 L80 40 Z" fill="#5C3A1E"/>
+                <ellipse cx="50" cy="-15" rx="14" ry="6" fill="#8A6244"/>
+                <ellipse cx="110" cy="-35" rx="14" ry="6" fill="#8A6244"/>
+              </g>
+              <!-- top: separated brick floating to show tenon -->
+              <g transform="translate(150, 90)">
+                <path d="M0 0 L80 -40 L160 0 L80 40 Z" fill="url(#brick)"/>
+                <path d="M0 0 L0 30 L80 70 L80 40 Z" fill="url(#brickDark)"/>
+                <path d="M160 0 L160 30 L80 70 L80 40 Z" fill="#5C3A1E"/>
+                <ellipse cx="50" cy="-15" rx="14" ry="6" fill="#8A6244"/>
+                <ellipse cx="110" cy="-35" rx="14" ry="6" fill="#8A6244"/>
+              </g>
+              <!-- assembly arrow -->
+              <g stroke="#C8541A" stroke-width="2" fill="none">
+                <line x1="230" y1="150" x2="230" y2="195" marker-end="url(#arr)"/>
+              </g>
+              <defs>
+                <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                  <path d="M0 0 L8 4 L0 8 Z" fill="#C8541A"/>
+                </marker>
+              </defs>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 — LOGEMENTS ============ -->
+<section class="product" id="logements">
+  <div class="wrap">
+    <div class="product__grid">
+      <div class="rv">
+        <span class="product__num">05 / <span data-fr="Architecture" data-en="Architecture">Architecture</span></span>
+        <h2 class="product__title"><em data-fr="Logements" data-en="Modular">Logements</em> <span data-fr="modulaires clé en main." data-en="homes, turnkey.">modulaires clé en main.</span></h2>
+        <p class="product__desc" data-fr="Trois typologies de base — Studio (30 m²), Famille (60 m²), Duplex (90 m²) — que l'on combine pour faire un quartier, une école ou un lodge. Toiture en composite, sanitaires intégrés, raccordement réseau standard." data-en="Three core typologies — Studio (30 m²), Family (60 m²), Duplex (90 m²) — combined into neighbourhoods, schools or lodges. Composite roof, integrated sanitation, standard grid hookup.">
+          Trois typologies de base — Studio (30 m²), Famille (60 m²), Duplex (90 m²) — que l'on combine pour faire un quartier, une école ou un lodge. Toiture en composite, sanitaires intégrés, raccordement réseau standard.
+        </p>
+        <div class="badges">
+          <span class="badge badge--green" data-fr="Livré en 21 jours" data-en="Delivered in 21 days">Livré en 21 jours</span>
+          <span class="badge" data-fr="Démontable" data-en="Dismountable">Démontable</span>
+          <span class="badge" data-fr="Isolé thermiquement" data-en="Thermally insulated">Isolé thermiquement</span>
+        </div>
+        <div class="specs">
+          <div class="spec"><span class="spec__k" data-fr="Surfaces" data-en="Surfaces">Surfaces</span><span class="spec__v">30 / 60 / 90 m²</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Coût/m²" data-en="Cost/m²">Coût/m²</span><span class="spec__v">≈ 175 000 FCFA</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Délai" data-en="Lead time">Délai</span><span class="spec__v">21 jours</span></div>
+          <div class="spec"><span class="spec__k" data-fr="Durée de vie" data-en="Lifespan">Durée de vie</span><span class="spec__v">80+ ans</span></div>
+        </div>
+      </div>
+      <div class="rv rv-1">
+        <div class="product__visual">
+          <div class="ph ph--forest" data-label="HOUSE-S 30m²"></div>
+          <svg style="width:88%; max-width:520px; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%)" viewBox="0 0 500 400" aria-hidden="true">
+            <!-- iso house -->
+            <g stroke="rgba(240,237,227,.7)" stroke-width="1.3" fill="rgba(240,237,227,.06)">
+              <!-- floor -->
+              <path d="M80 320 L250 230 L420 320 L250 410 Z" fill="rgba(240,237,227,.12)"/>
+              <!-- left wall -->
+              <path d="M80 320 L80 240 L250 150 L250 230 Z" fill="rgba(240,237,227,.10)"/>
+              <!-- right wall -->
+              <path d="M420 320 L420 240 L250 150 L250 230 Z" fill="rgba(240,237,227,.06)"/>
+              <!-- roof -->
+              <path d="M80 240 L250 150 L420 240 L250 330 Z" opacity="0" />
+              <path d="M50 230 L250 110 L450 230 L250 350 Z" fill="rgba(92,130,112,.55)" stroke="rgba(240,237,227,.9)"/>
+              <!-- brick pattern -->
+              <g stroke="rgba(240,237,227,.5)" stroke-width=".5" fill="none">
+                <path d="M100 290 L240 210 M130 275 L270 195 M160 260 L300 180 M190 245 L330 165 M220 230 L360 150"/>
+                <path d="M280 210 L410 290 M310 195 L420 250"/>
+              </g>
+              <!-- door -->
+              <rect x="220" y="270" width="40" height="60" fill="rgba(20,20,15,.5)" stroke="rgba(240,237,227,.7)"/>
+              <!-- window -->
+              <rect x="140" y="270" width="40" height="30" fill="rgba(200,84,26,.4)" stroke="rgba(240,237,227,.7)"/>
+              <rect x="320" y="270" width="40" height="30" fill="rgba(200,84,26,.4)" stroke="rgba(240,237,227,.7)"/>
+            </g>
+            <text x="250" y="390" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="rgba(240,237,227,.7)">MODEL S · 30 M² · ISO VIEW</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARE TABLE ============ -->
+<section class="section section--warm">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 30px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Comparaison" data-en="Comparison">Comparaison</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4vw, 60px); line-height:1.05; max-width: 22ch">
+          <span data-fr="Composite recyclé" data-en="Recycled composite">Composite recyclé</span>
+          <em data-fr="vs fonte. Sans contestation." data-en="vs cast iron. No contest.">vs fonte. Sans contestation.</em>
+        </h2>
+      </div>
+    </div>
+
+    <table class="compare rv rv-2">
+      <thead>
+        <tr>
+          <th></th>
+          <th data-fr="Fonte ductile" data-en="Ductile iron">Fonte ductile</th>
+          <th data-fr="Béton armé" data-en="Reinforced concrete">Béton armé</th>
+          <th data-fr="Citabel composite" data-en="Citabel composite">Citabel composite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-fr="Poids (Ø600 D400)" data-en="Weight (Ø600 D400)">Poids (Ø600 D400)</td>
+          <td class="bad">68 kg</td>
+          <td class="bad">85 kg</td>
+          <td class="good">22 kg</td>
+        </tr>
+        <tr>
+          <td data-fr="Vol & revente" data-en="Theft & resale">Vol & revente</td>
+          <td class="bad" data-fr="Cible majeure" data-en="Major target">Cible majeure</td>
+          <td class="good" data-fr="Faible" data-en="Low">Faible</td>
+          <td class="good" data-fr="Sans valeur" data-en="No value">Sans valeur</td>
+        </tr>
+        <tr>
+          <td data-fr="Corrosion / saumure" data-en="Corrosion / salt">Corrosion / saumure</td>
+          <td class="bad" data-fr="Forte sensibilité" data-en="High exposure">Forte sensibilité</td>
+          <td class="bad" data-fr="Éclats, fissures" data-en="Cracks, spalls">Éclats, fissures</td>
+          <td class="good" data-fr="Insensible" data-en="Immune">Insensible</td>
+        </tr>
+        <tr>
+          <td data-fr="Empreinte CO₂ (kg)" data-en="CO₂ footprint (kg)">Empreinte CO₂ (kg)</td>
+          <td class="bad">142</td>
+          <td class="bad">98</td>
+          <td class="good">49</td>
+        </tr>
+        <tr>
+          <td data-fr="Délai approvisionnement" data-en="Lead time">Délai approvisionnement</td>
+          <td class="bad" data-fr="60–90 jours (import)" data-en="60–90 days (import)">60–90 jours (import)</td>
+          <td class="bad">15 jours</td>
+          <td class="good" data-fr="5 jours · stock Dakar" data-en="5 days · Dakar stock">5 jours · stock Dakar</td>
+        </tr>
+        <tr>
+          <td data-fr="Origine" data-en="Origin">Origine</td>
+          <td class="bad" data-fr="Import Chine / Inde" data-en="Imported China / India">Import Chine / Inde</td>
+          <td class="bad" data-fr="Local (béton)" data-en="Local (concrete)">Local (béton)</td>
+          <td class="good" data-fr="100% local · 100% recyclé" data-en="100% local · 100% recycled">100% local · 100% recyclé</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section--ink section section--tight" style="padding: 100px 0">
+  <div class="wrap">
+    <div class="grid-12" style="align-items: end">
+      <div class="col-span-8 rv">
+        <h2 class="display" style="font-size: clamp(40px, 5.2vw, 88px); line-height:.98; color: #FAFAF6">
+          <span data-fr="Votre chantier mérite" data-en="Your worksite deserves">Votre chantier mérite</span><br/>
+          <em style="color: var(--green-bright)" data-fr="la bonne matière." data-en="the right matter.">la bonne matière.</em>
+        </h2>
+      </div>
+      <div class="col-span-4 rv rv-1" style="display: flex; flex-direction: column; align-items: flex-end; gap: 14px">
+        <a class="btn btn--green" href="contact.html#devis"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="btn btn--ghost" style="border-color: rgba(240,237,227,.4); color: #FAFAF6" href="technology.html"><span data-fr="Comprendre la matière" data-en="Understand the matter">Comprendre la matière</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script>Citabel.mountChrome({page: 'solutions'});</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

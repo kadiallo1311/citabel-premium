@@ -1,0 +1,510 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>CITABEL — Contact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Contactez CITABEL — devis, partenariats, investisseurs, presse. Espace Ataya Properties 673, Dakar — Sénégal." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-head{
+    padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-head h1{
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 140px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 18px 0 0;
+  }
+  .page-head h1 em{ font-style: italic; color: var(--green) }
+  .breadcrumb{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute) }
+  .breadcrumb a{ color: inherit; text-decoration: none }
+
+  .contact-grid{
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    padding-top: 30px;
+  }
+  @media (max-width: 980px){ .contact-grid{ grid-template-columns: 1fr; gap: 50px } }
+
+  /* form */
+  .form{ display: grid; gap: 18px }
+  .field{ display: grid; gap: 8px }
+  .field label{
+    font-family: var(--mono); font-size: 11px; letter-spacing:.14em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .field input, .field textarea, .field select{
+    font-family: var(--sans);
+    font-size: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline: 0;
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(45,74,62,.12);
+  }
+  .field textarea{ resize: vertical; min-height: 130px }
+  .field--inline{ display:flex; gap: 10px; align-items: center; font-size: 13px; color: var(--ink-soft) }
+  .field--inline input{ width: auto; padding: 0; margin: 0 }
+  .row2{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
+  @media (max-width: 600px){ .row2{ grid-template-columns: 1fr } }
+
+  /* topic chips */
+  .topics{
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .topic{
+    border: 1px solid var(--line-strong);
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-family: var(--sans); font-size: 13px;
+    background: none;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: all .2s var(--ease);
+  }
+  .topic:hover{ border-color: var(--ink) }
+  .topic.is-on{ background: var(--ink); color: var(--paper); border-color: var(--ink) }
+
+  /* info aside */
+  .info h3{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-mute);
+    margin: 0 0 10px;
+  }
+  .info__addr{
+    font-family: var(--display); font-size: clamp(26px, 2.6vw, 36px);
+    line-height: 1.15; letter-spacing: -.01em;
+    margin-bottom: 28px;
+  }
+  .info__list{
+    display: grid; gap: 16px;
+    margin: 20px 0 36px;
+  }
+  .info__line{
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 14px; align-items: center;
+    font-size: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .info__line svg{ width: 18px; height: 18px; color: var(--ink-mute) }
+  .info__line a{ color: var(--ink); text-decoration: none }
+  .info__line a:hover{ color: var(--green) }
+
+  .socials{
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .soc{
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: grid; place-items: center;
+    color: var(--ink); text-decoration: none;
+    transition: all .25s var(--ease);
+  }
+  .soc:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-2px) }
+  .soc svg{ width: 18px; height: 18px }
+
+  .whats{
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: #25D366;
+    color: #061a0e;
+    font-family: var(--sans); font-weight: 500; font-size: 14px;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: transform .2s var(--ease);
+  }
+  .whats:hover{ transform: translateY(-1px) }
+  .whats svg{ width: 18px; height: 18px }
+
+  /* map */
+  .map-wrap{
+    background: var(--bg-warm);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 80px 0;
+  }
+  .map{
+    aspect-ratio: 21/9;
+    background: #0F1410;
+    border-radius: var(--r-md);
+    position: relative;
+    overflow: hidden;
+  }
+  .map__bg{
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 60% 40%, rgba(92,130,112,.25), transparent 40%),
+      radial-gradient(circle at 30% 70%, rgba(200,84,26,.15), transparent 30%),
+      #0F1410;
+  }
+  .map__grid{
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .map__roads{
+    position: absolute; inset: 0;
+  }
+  .map__roads path{ fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1 }
+  .map__roads .major{ stroke-width: 2.5; stroke: rgba(255,255,255,.32) }
+  .map__pin{
+    position: absolute; left: 58%; top: 42%;
+    transform: translate(-50%, -100%);
+  }
+  .map__pin__dot{
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--orange);
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 8px rgba(200,84,26,.25), 0 0 0 16px rgba(200,84,26,.12);
+    animation: pulse 2.2s ease-in-out infinite;
+    margin: 0 auto;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 8px rgba(200,84,26,.25), 0 0 0 16px rgba(200,84,26,.12) }
+    50% { box-shadow: 0 0 0 14px rgba(200,84,26,.2), 0 0 0 26px rgba(200,84,26,.08) }
+  }
+  .map__pin__label{
+    margin-top: 14px;
+    padding: 8px 14px;
+    background: var(--paper);
+    border-radius: 999px;
+    font-family: var(--mono); font-size: 11px; letter-spacing:.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .map__chrome{
+    position: absolute; top: 18px; left: 18px;
+    display: flex; align-items: center; gap: 10px;
+    color: rgba(255,255,255,.7);
+    font-family: var(--mono); font-size: 10px; letter-spacing:.14em;
+    text-transform: uppercase;
+  }
+  .map__coord{
+    position: absolute; bottom: 18px; right: 18px;
+    color: rgba(255,255,255,.6);
+    font-family: var(--mono); font-size: 10px; letter-spacing:.14em;
+    text-align: right;
+  }
+  .map__legend{
+    position: absolute; bottom: 18px; left: 18px;
+    color: rgba(255,255,255,.7);
+    font-family: var(--mono); font-size: 10px; letter-spacing:.14em;
+    display: flex; gap: 16px;
+  }
+  .map__legend span{ display:flex; align-items:center; gap: 6px }
+  .map__legend i{ width: 10px; height: 2px; background: rgba(255,255,255,.32); display:inline-block }
+
+  /* hours */
+  .hours{
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+  }
+  .hours > div{
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .hours > div:nth-child(odd){ padding-right: 24px }
+  .hours > div:nth-child(even){ padding-left: 24px; border-left: 1px solid var(--line) }
+  .hours strong{ font-weight: 500; color: var(--ink) }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#14140F" /></head>
+<body data-page="contact">
+<div data-slot="nav"></div>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb"><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <span data-fr="Contact" data-en="Contact">Contact</span></nav>
+    <h1 class="rv"><span data-fr="Parlons" data-en="Let's talk">Parlons</span><br/><em data-fr="d'un projet." data-en="about a project.">d'un projet.</em></h1>
+  </div>
+</section>
+
+<!-- ============ FORM + INFO ============ -->
+<section class="section section--paper" id="devis">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- FORM -->
+      <div class="rv">
+        <span class="eyebrow"><span data-fr="Formulaire" data-en="Form">Formulaire</span></span>
+        <h2 class="display" style="font-size: clamp(32px, 3.6vw, 52px); margin: 14px 0 8px; line-height: 1.05">
+          <span data-fr="Dites-nous ce que vous voulez bâtir." data-en="Tell us what you want to build.">Dites-nous ce que vous voulez bâtir.</span>
+        </h2>
+        <p class="lede" style="font-size: 16px; margin-bottom: 30px" data-fr="Réponse sous 48 h ouvrées, avec un devis ou une fiche-projet préliminaire." data-en="48 business-hours response, with a quote or a preliminary project sheet.">
+          Réponse sous 48 h ouvrées, avec un devis ou une fiche-projet préliminaire.
+        </p>
+
+        <form class="form" id="quote-form" onsubmit="event.preventDefault(); this.querySelector('[data-success]').style.display='block'; this.querySelector('button[type=submit]').textContent = this.querySelector('button[type=submit]').dataset.sent;">
+          <div class="field">
+            <label data-fr="Je m'adresse à vous pour…" data-en="I'm reaching out about…">Je m'adresse à vous pour…</label>
+            <div class="topics" id="topics">
+              <button type="button" class="topic is-on" data-v="devis" data-fr="Un devis" data-en="A quote">Un devis</button>
+              <button type="button" class="topic" data-v="partenariat" data-fr="Un partenariat" data-en="A partnership">Un partenariat</button>
+              <button type="button" class="topic" data-v="investisseur" data-fr="Investisseur" data-en="Investor">Investisseur</button>
+              <button type="button" class="topic" data-v="presse" data-fr="Presse" data-en="Press">Presse</button>
+              <button type="button" class="topic" data-v="visite" data-fr="Visite de l'usine" data-en="Plant visit">Visite de l'usine</button>
+              <button type="button" class="topic" data-v="carrieres" data-fr="Carrières" data-en="Careers">Carrières</button>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label data-fr="Nom complet" data-en="Full name">Nom complet</label>
+              <input type="text" required data-fr-placeholder="Aïssatou N." data-en-placeholder="Aïssatou N." placeholder="Aïssatou N." />
+            </div>
+            <div class="field">
+              <label data-fr="Organisation" data-en="Organisation">Organisation</label>
+              <input type="text" placeholder="Ageroute, BOAD, etc." />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label data-fr="E-mail professionnel" data-en="Work email">E-mail professionnel</label>
+              <input type="email" required placeholder="vous@organisation.sn" />
+            </div>
+            <div class="field">
+              <label data-fr="Téléphone (WhatsApp idéal)" data-en="Phone (WhatsApp preferred)">Téléphone (WhatsApp idéal)</label>
+              <input type="tel" placeholder="+221 77 000 00 00" />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label data-fr="Pays / Région" data-en="Country / Region">Pays / Région</label>
+              <select>
+                <option>Sénégal</option>
+                <option>Côte d'Ivoire</option>
+                <option>Mali</option>
+                <option>Burkina Faso</option>
+                <option>Guinée</option>
+                <option>Mauritanie</option>
+                <option>Bénin</option>
+                <option>Togo</option>
+                <option>Ghana</option>
+                <option>Nigéria</option>
+                <option data-fr="Autre…" data-en="Other…">Autre…</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-fr="Volume estimé" data-en="Estimated volume">Volume estimé</label>
+              <select>
+                <option data-fr="< 100 unités / 50 m²" data-en="< 100 units / 50 m²">&lt; 100 unités / 50 m²</option>
+                <option data-fr="100 → 1 000 / 50 → 500 m²" data-en="100 → 1,000 / 50 → 500 m²">100 → 1 000 / 50 → 500 m²</option>
+                <option data-fr="1 000 → 10 000 / 500 → 5 000 m²" data-en="1,000 → 10,000 / 500 → 5,000 m²">1 000 → 10 000 / 500 → 5 000 m²</option>
+                <option data-fr="> 10 000 unités / > 5 000 m²" data-en="> 10,000 units / > 5,000 m²">&gt; 10 000 unités / &gt; 5 000 m²</option>
+                <option data-fr="Pas encore défini" data-en="Not yet defined">Pas encore défini</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label data-fr="Votre projet, brièvement" data-en="Your project, briefly">Votre projet, brièvement</label>
+            <textarea required data-fr-placeholder="Projet, lieu, calendrier, contraintes techniques…" data-en-placeholder="Project, location, timeline, technical constraints…" placeholder="Projet, lieu, calendrier, contraintes techniques…"></textarea>
+          </div>
+
+          <div class="field field--inline">
+            <input type="checkbox" id="cgu" />
+            <label for="cgu" style="margin:0; font-family: var(--sans); text-transform: none; letter-spacing: 0; font-size: 13px; color: var(--ink-soft)" data-fr="J'accepte que CITABEL traite mes données pour répondre à ma demande. Aucun spam, jamais." data-en="I accept that CITABEL processes my data to respond to my request. No spam, ever.">
+              J'accepte que CITABEL traite mes données pour répondre à ma demande. Aucun spam, jamais.
+            </label>
+          </div>
+
+          <div style="margin-top: 8px; display:flex; gap: 16px; align-items: center; flex-wrap: wrap">
+            <button type="submit" class="btn btn--primary" data-fr="Envoyer la demande" data-en="Send request" data-sent="Demande envoyée ✓">
+              <span data-fr="Envoyer la demande" data-en="Send request">Envoyer la demande</span>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+            </button>
+            <span data-success style="display:none; font-family: var(--mono); font-size: 12px; letter-spacing:.12em; color: var(--green); text-transform: uppercase" data-fr="Merci. Nous revenons vers vous très vite." data-en="Thank you. We'll get back to you shortly.">
+              Merci. Nous revenons vers vous très vite.
+            </span>
+          </div>
+        </form>
+      </div>
+
+      <!-- INFO -->
+      <aside class="info rv rv-1">
+        <h3 data-fr="Siège" data-en="Headquarters">Siège</h3>
+        <div class="info__addr">
+          Espace Ataya Properties 673<br/>
+          Dakar — Sénégal
+        </div>
+
+        <h3 data-fr="Direct" data-en="Direct">Direct</h3>
+        <div class="info__list">
+          <div class="info__line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.36 1.92.7 2.83a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.86.57 2.83.7A2 2 0 0 1 22 16.92Z"/></svg>
+            <a href="tel:+221770000000">+221 77 000 00 00</a>
+          </div>
+          <div class="info__line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7 L12 13 L21 7"/></svg>
+            <a href="mailto:contact@citabel.sn">contact@citabel.sn</a>
+          </div>
+          <div class="info__line" id="investors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7 L12 13 L21 7"/></svg>
+            <a href="mailto:investors@citabel.sn">investors@citabel.sn</a>
+          </div>
+          <div class="info__line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7 L12 13 L21 7"/></svg>
+            <a href="mailto:press@citabel.sn">press@citabel.sn</a>
+          </div>
+        </div>
+
+        <a class="whats" href="https://wa.me/221770000000" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3 17.4L2 22l4.7-1A11 11 0 1 0 20.5 3.5ZM12 20a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.6.6-2.7-.2-.3A8 8 0 1 1 12 20Zm4.6-6c-.3-.1-1.5-.7-1.8-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.6 0a6.6 6.6 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.5l.4-.4.3-.4a.4.4 0 0 0 0-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5 5 0 0 0 1.1 2.7 12 12 0 0 0 4.7 4.1 5.7 5.7 0 0 0 1.6.4 4 4 0 0 0 1.7-.1 2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1 0-.3-.1-.6-.2Z"/></svg>
+          <span>WhatsApp Business</span>
+        </a>
+
+        <div style="margin-top: 40px">
+          <h3 data-fr="Suivre" data-en="Follow">Suivre</h3>
+          <div class="socials">
+            <a class="soc" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 1.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM10 9h4v2.1A4 4 0 0 1 18 9c3 0 4 2 4 5v6h-4v-5c0-1.7-.6-3-2-3s-2 1.3-2 3v5h-4z"/></svg></a>
+            <a class="soc" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a class="soc" href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.6-.4-5.3a2.7 2.7 0 0 0-1.9-1.9C17.9 4.5 12 4.5 12 4.5s-5.9 0-7.7.3a2.7 2.7 0 0 0-1.9 1.9C2 8.4 2 12 2 12s0 3.6.4 5.3c.2 1 1 1.7 1.9 1.9 1.8.3 7.7.3 7.7.3s5.9 0 7.7-.3c1-.2 1.7-.9 1.9-1.9.4-1.7.4-5.3.4-5.3ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></a>
+            <a class="soc" href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 3H21l-6.6 7.5L22 21h-6.2l-4.8-6.3L5.5 21H2.7l7-8L2 3h6.3l4.4 5.8L18.2 3Zm-1.1 16.4h1.6L7 4.5H5.3l11.8 14.9Z"/></svg></a>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px">
+          <h3 data-fr="Heures d'ouverture" data-en="Office hours">Heures d'ouverture</h3>
+          <div class="hours">
+            <div><span data-fr="Lun – Ven" data-en="Mon – Fri">Lun – Ven</span><strong>08:00 — 18:00</strong></div>
+            <div><span>Sam</span><strong>09:00 — 13:00</strong></div>
+            <div><span>Dim</span><strong data-fr="Fermé" data-en="Closed">Fermé</strong></div>
+            <div><span data-fr="Visite usine" data-en="Plant visit">Visite usine</span><strong data-fr="Sur RDV" data-en="By appt.">Sur RDV</strong></div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section class="map-wrap">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 30px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Localisation" data-en="Location">Localisation</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4.4vw, 60px); line-height: 1.05">
+          <span data-fr="Au cœur de Dakar," data-en="In the heart of Dakar,">Au cœur de Dakar,</span>
+          <em data-fr="à 12 min de l'aéroport." data-en="12 min from the airport.">à 12 min de l'aéroport.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="map rv rv-2" aria-hidden="true">
+      <div class="map__bg"></div>
+      <div class="map__grid"></div>
+      <svg class="map__roads" viewBox="0 0 1200 600" preserveAspectRatio="none">
+        <!-- coastline-ish curves -->
+        <path d="M0 480 Q200 460 380 470 T800 460 T1200 440" class="major"/>
+        <path d="M0 380 Q280 350 540 360 T1200 340"/>
+        <path d="M120 0 Q140 200 200 380 T280 600"/>
+        <path d="M480 0 Q500 220 580 380 T700 600" class="major"/>
+        <path d="M820 0 Q840 200 900 360 T1000 600"/>
+        <path d="M0 240 Q300 220 700 240 T1200 220"/>
+        <!-- minor grid -->
+        <path d="M0 120 L1200 120 M0 540 L1200 540 M300 0 L300 600 M900 0 L900 600" stroke-dasharray="2 6"/>
+      </svg>
+      <div class="map__chrome">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--green-bright)"></span>
+        <span>CITABEL HQ · DAKAR · SN</span>
+      </div>
+      <div class="map__pin">
+        <div class="map__pin__dot"></div>
+        <div class="map__pin__label">Espace Ataya Properties 673</div>
+      </div>
+      <div class="map__legend">
+        <span><i></i> <span data-fr="Boulevard" data-en="Boulevard">Boulevard</span></span>
+        <span><i style="opacity:.6"></i> <span data-fr="Route secondaire" data-en="Secondary">Route secondaire</span></span>
+      </div>
+      <div class="map__coord">
+        14° 41′ 39″ N<br/>17° 26′ 51″ W
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ-LIKE STRIP ============ -->
+<section class="section section--paper section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="row-gap: 30px">
+      <div class="col-span-4 rv">
+        <span class="eyebrow"><span data-fr="Questions fréquentes" data-en="FAQ">Questions fréquentes</span></span>
+      </div>
+      <div class="col-span-8 rv rv-1">
+        <div style="display:grid; gap: 0; border-top: 1px solid var(--line)">
+          <details style="padding: 22px 0; border-bottom: 1px solid var(--line);" open>
+            <summary style="cursor:pointer; font-family: var(--display); font-size: 22px; letter-spacing: -.01em; list-style: none" data-fr="Combien de temps entre la commande et la livraison ?" data-en="How long between order and delivery?">Combien de temps entre la commande et la livraison ?</summary>
+            <p style="margin: 14px 0 0; color: var(--ink-soft); max-width: 60ch" data-fr="Tampons et grilles : 5 jours sur stock Dakar. Regards et briques sur projet : 3 semaines en moyenne. Logements modulaires : 21 jours pour livrer un Studio." data-en="Covers and grates: 5 days from Dakar stock. Chambers and bricks made-to-order: 3 weeks average. Modular homes: 21 days to deliver a Studio.">
+              Tampons et grilles : 5 jours sur stock Dakar. Regards et briques sur projet : 3 semaines en moyenne. Logements modulaires : 21 jours pour livrer un Studio.
+            </p>
+          </details>
+          <details style="padding: 22px 0; border-bottom: 1px solid var(--line);">
+            <summary style="cursor:pointer; font-family: var(--display); font-size: 22px; letter-spacing: -.01em; list-style: none" data-fr="Livrez-vous hors du Sénégal ?" data-en="Do you deliver outside Senegal?">Livrez-vous hors du Sénégal ?</summary>
+            <p style="margin: 14px 0 0; color: var(--ink-soft); max-width: 60ch" data-fr="Oui — Mauritanie, Mali, Guinée, Côte d'Ivoire en livraison directe depuis Dakar. Ailleurs en CEDEAO, sur partenariat logistique." data-en="Yes — Mauritania, Mali, Guinea, Côte d'Ivoire by direct delivery from Dakar. Elsewhere in ECOWAS, through logistics partnership.">
+              Oui — Mauritanie, Mali, Guinée, Côte d'Ivoire en livraison directe depuis Dakar. Ailleurs en CEDEAO, sur partenariat logistique.
+            </p>
+          </details>
+          <details style="padding: 22px 0; border-bottom: 1px solid var(--line);">
+            <summary style="cursor:pointer; font-family: var(--display); font-size: 22px; letter-spacing: -.01em; list-style: none" data-fr="Les produits sont-ils certifiés pour les marchés publics ?" data-en="Are products certified for public tenders?">Les produits sont-ils certifiés pour les marchés publics ?</summary>
+            <p style="margin: 14px 0 0; color: var(--ink-soft); max-width: 60ch" data-fr="Oui. EN 124 (tampons et grilles) classes A15 à D400, NF EN 771-3 (briques). Agréments ONAS, Ageroute, Sn HLM. Tests AENOR et CSTB sur demande." data-en="Yes. EN 124 (covers and grates) classes A15 to D400, NF EN 771-3 (bricks). ONAS, Ageroute, Sn HLM approvals. AENOR and CSTB tests on request.">
+              Oui. EN 124 (tampons et grilles) classes A15 à D400, NF EN 771-3 (briques). Agréments ONAS, Ageroute, Sn HLM. Tests AENOR et CSTB sur demande.
+            </p>
+          </details>
+          <details style="padding: 22px 0; border-bottom: 1px solid var(--line);">
+            <summary style="cursor:pointer; font-family: var(--display); font-size: 22px; letter-spacing: -.01em; list-style: none" data-fr="Peut-on visiter l'usine ?" data-en="Can we visit the plant?">Peut-on visiter l'usine ?</summary>
+            <p style="margin: 14px 0 0; color: var(--ink-soft); max-width: 60ch" data-fr="Oui, sur rendez-vous. Visites guidées le mercredi pour les groupes (étudiants, journalistes, partenaires). Délégations officielles : prévenir 5 jours ouvrés." data-en="Yes, by appointment. Group tours every Wednesday (students, journalists, partners). Official delegations: 5 business days notice.">
+              Oui, sur rendez-vous. Visites guidées le mercredi pour les groupes (étudiants, journalistes, partenaires). Délégations officielles : prévenir 5 jours ouvrés.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script>Citabel.mountChrome({page: 'contact'});</script>
+<script src="assets/site.js"></script>
+<script>
+  // topic chip selector
+  document.getElementById('topics').addEventListener('click', e => {
+    const t = e.target.closest('.topic'); if (!t) return;
+    document.querySelectorAll('#topics .topic').forEach(b => b.classList.toggle('is-on', b === t));
+  });
+  // open #investors topic if hash present
+  if (location.hash === '#investors') {
+    const inv = document.querySelector('.topic[data-v="investisseur"]');
+    if (inv) { document.querySelectorAll('#topics .topic').forEach(b => b.classList.remove('is-on')); inv.classList.add('is-on'); }
+  }
+</script>
+</body>
+</html>

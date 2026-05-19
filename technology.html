@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>CITABEL — Technologie & Innovation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Procédé industriel CITABEL : collecte, tri spectroscopique, broyage, fusion, moulage haute pression. Performances techniques détaillées." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-head{
+    padding: clamp(70px, 9vw, 130px) 0 clamp(50px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-head h1{
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 140px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 18px 0 0;
+  }
+  .page-head h1 em{ font-style: italic; color: var(--green) }
+  .breadcrumb{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute) }
+  .breadcrumb a{ color: inherit; text-decoration: none }
+
+  /* 3D rotating product */
+  .stage{
+    background: #0A0A07;
+    color: #EFEDE5;
+    padding: clamp(80px, 10vw, 140px) 0;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .stage__grid{
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;
+  }
+  .stage__copy h2{
+    font-family: var(--display); font-size: clamp(40px, 5vw, 76px);
+    line-height: 1; letter-spacing: -.02em; color: #FAFAF6;
+    margin: 14px 0 20px;
+  }
+  .stage__copy h2 em{ font-style: italic; color: var(--green-bright) }
+  .stage__copy p{ color: #C7C4B7; font-size: 17px; line-height:1.6; max-width: 46ch }
+
+  .scene{
+    position: relative;
+    height: 540px;
+    perspective: 1400px;
+    perspective-origin: 50% 45%;
+  }
+  .product3d{
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    animation: spin 24s linear infinite;
+  }
+  .product3d__layer{
+    position: absolute; left: 50%; top: 50%;
+    width: 360px; height: 360px;
+    transform-style: preserve-3d;
+    margin-left: -180px; margin-top: -180px;
+  }
+  .disc{
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(240,237,227,.18);
+  }
+  /* stack of discs at different Z to give "thickness" */
+  .disc--top{
+    transform: translateZ(40px);
+    background: radial-gradient(circle at 35% 35%, #3A3933, #0F0F0A);
+    border: 1px solid rgba(240,237,227,.3);
+  }
+  .disc--bot{
+    transform: translateZ(-40px);
+    background: radial-gradient(circle at 35% 35%, #1A1A14, #050505);
+    border: 1px solid rgba(240,237,227,.2);
+  }
+  .disc--ring{
+    inset: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(240,237,227,.4);
+  }
+  .disc--side{
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(180deg, transparent 49%, rgba(240,237,227,.1) 49% 51%, transparent 51%);
+  }
+  .product3d__rib{
+    position: absolute; inset: 60px;
+    border-radius: 50%; border: 1px dashed rgba(240,237,227,.25);
+  }
+  .label3d{
+    position: absolute;
+    transform: translateZ(42px);
+    inset: 0; display:grid; place-items:center;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .25em;
+    color: rgba(200,84,26,.9);
+  }
+  @keyframes spin {
+    0% { transform: rotateX(60deg) rotateZ(0deg) }
+    100% { transform: rotateX(60deg) rotateZ(360deg) }
+  }
+
+  /* dimension annotations */
+  .anno{
+    position: absolute;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(240,237,227,.7);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .anno--tl{ top: 40px; left: 30px }
+  .anno--tr{ top: 40px; right: 30px }
+  .anno--bl{ bottom: 40px; left: 30px }
+  .anno--br{ bottom: 40px; right: 30px }
+  .anno__line{
+    width: 60px; height: 1px; background: rgba(240,237,227,.4);
+  }
+  .anno--tr .anno__line, .anno--br .anno__line{ order: -1 }
+
+  /* process timeline */
+  .timeline{
+    position: relative;
+    padding: 60px 0;
+  }
+  .timeline__rail{
+    position: absolute;
+    left: 7%; right: 7%;
+    top: 90px; height: 1px;
+    background: var(--line-strong);
+  }
+  .timeline__rail::after{
+    content: "";
+    position: absolute; left: 0; top: -3px; width: 7px; height: 7px;
+    border-radius: 50%; background: var(--green);
+  }
+  .timeline__grid{
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .tl-step{
+    text-align: left;
+    padding-right: 14px;
+  }
+  .tl-step__dot{
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    margin: 84px 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .tl-step__num{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--ink-mute);
+  }
+  .tl-step__title{
+    font-family: var(--display); font-size: clamp(24px, 2.4vw, 36px);
+    line-height: 1; margin-top: 6px; letter-spacing: -.01em;
+  }
+  .tl-step__desc{ font-size: 13px; color: var(--ink-soft); margin-top: 12px; line-height: 1.55 }
+  .tl-step__svg{ width: 64px; height: 64px; margin-top: 18px; color: var(--ink) }
+  .tl-step__svg svg{ width:100%; height:100% }
+
+  @media (max-width: 960px){
+    .stage__grid{ grid-template-columns: 1fr }
+    .scene{ height: 420px }
+    .timeline__grid{ grid-template-columns: 1fr 1fr; gap: 40px }
+    .timeline__rail{ display: none }
+    .tl-step__dot{ margin: 0 0 16px }
+  }
+
+  /* performance grid */
+  .perf{
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .perf__cell{
+    padding: 36px 28px 40px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .perf__cell:nth-child(4n){ border-right: 0 }
+  .perf__cell:last-child{ border-right: 0 }
+  .perf__num{
+    font-family: var(--display);
+    font-size: clamp(48px, 5vw, 80px);
+    line-height: .95; letter-spacing: -.02em;
+  }
+  .perf__num em{ color: var(--green); font-style: italic }
+  .perf__num small{ font-size: 18px; color: var(--ink-mute); font-style: normal; margin-left: 4px; font-family: var(--mono) }
+  .perf__label{ font-family: var(--mono); font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--ink-mute); margin: 18px 0 6px }
+  .perf__desc{ font-size: 14px; color: var(--ink-soft); max-width: 30ch }
+  @media (max-width: 900px){
+    .perf{ grid-template-columns: 1fr 1fr }
+    .perf__cell:nth-child(4n){ border-right: 1px solid var(--line) }
+    .perf__cell:nth-child(2n){ border-right: 0 }
+  }
+
+  /* sample matter card */
+  .matter{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .matter__visual{
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .matter__visual .ph{ }
+  .matter__body{
+    padding: 36px 40px;
+  }
+  .matter__body h3{ font-family: var(--display); font-size: clamp(28px, 3vw, 44px); line-height: 1; letter-spacing: -.01em }
+  .matter__body h3 em{ color: var(--green); font-style: italic }
+  .matter__body ul{ list-style: none; padding: 0; margin: 26px 0 0 }
+  .matter__body li{
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: baseline;
+    font-size: 14px;
+  }
+  .matter__body li b{
+    font-family: var(--display); font-weight: 400; font-size: 18px;
+  }
+  @media (max-width: 800px){
+    .matter{ grid-template-columns: 1fr }
+  }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#14140F" /></head>
+<body data-page="technology">
+<div data-slot="nav"></div>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb"><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <span data-fr="Technologie" data-en="Technology">Technologie</span></nav>
+    <h1 class="rv"><span data-fr="La matière," data-en="The matter,">La matière,</span><br/><em data-fr="rééditée." data-en="reissued.">rééditée.</em></h1>
+  </div>
+</section>
+
+<!-- ============ 3D STAGE ============ -->
+<section class="stage">
+  <div class="wrap">
+    <div class="stage__grid">
+      <div class="stage__copy rv">
+        <span class="eyebrow" style="color: rgba(240,237,227,.6)">
+          <span data-fr="Anatomie" data-en="Anatomy">Anatomie</span>
+        </span>
+        <h2><span data-fr="Le tampon," data-en="The cover,">Le tampon,</span> <em data-fr="démonté." data-en="exploded.">démonté.</em></h2>
+        <p data-fr="Une seule pièce, mais cinq couches techniques : surface antidérapante texturée, ceinture périphérique anti-poinçonnement, âme nervurée pour répartir la charge, jonc d'étanchéité EPDM, et marquage moulé inviolable. Le tout monobloc — aucun assemblage, aucune soudure, aucun point faible." data-en="A single part, but five technical layers: textured anti-slip surface, perimeter anti-puncture belt, ribbed core that distributes load, EPDM sealing bead, and tamper-proof moulded marking. All monolithic — no assembly, no welding, no weak point.">
+          Une seule pièce, mais cinq couches techniques : surface antidérapante texturée, ceinture périphérique anti-poinçonnement, âme nervurée pour répartir la charge, jonc d'étanchéité EPDM, et marquage moulé inviolable. Le tout monobloc — aucun assemblage, aucune soudure, aucun point faible.
+        </p>
+        <div style="margin-top: 28px; display:flex; gap: 12px; flex-wrap:wrap">
+          <a class="btn btn--green" href="solutions.html#tampons">
+            <span data-fr="Voir le produit" data-en="See product">Voir le produit</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="scene rv rv-1">
+        <div class="anno anno--tl">
+          <span data-fr="Surface antidérapante" data-en="Anti-slip surface">Surface antidérapante</span><span class="anno__line"></span>
+        </div>
+        <div class="anno anno--tr">
+          <span class="anno__line"></span><span>Ø 600 mm</span>
+        </div>
+        <div class="anno anno--bl">
+          <span data-fr="Âme nervurée" data-en="Ribbed core">Âme nervurée</span><span class="anno__line"></span>
+        </div>
+        <div class="anno anno--br">
+          <span class="anno__line"></span><span data-fr="Joint EPDM" data-en="EPDM seal">Joint EPDM</span>
+        </div>
+        <div class="product3d" aria-hidden="true">
+          <div class="product3d__layer">
+            <div class="disc disc--bot"></div>
+            <div class="disc disc--side"></div>
+            <div class="disc disc--top"></div>
+            <div class="product3d__rib" style="transform: translateZ(42px)"></div>
+            <div class="disc disc--ring" style="transform: translateZ(43px)"></div>
+            <div class="disc" style="inset: 90px; transform: translateZ(44px); border:1px solid rgba(240,237,227,.5)"></div>
+            <div class="disc" style="inset: 140px; transform: translateZ(45px); border:1px solid rgba(200,84,26,.7)"></div>
+            <div class="label3d">CITABEL · D400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS TIMELINE ============ -->
+<section class="section section--paper">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 30px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Procédé" data-en="Process">Procédé</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(40px, 5vw, 80px); line-height:1.02">
+          <span data-fr="De la décharge" data-en="From the landfill">De la décharge</span><br/>
+          <em data-fr="à la chaussée." data-en="to the carriageway.">à la chaussée.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="timeline rv rv-2">
+      <div class="timeline__rail"></div>
+      <div class="timeline__grid">
+        <div class="tl-step">
+          <div class="tl-step__dot" style="background: var(--green); border-color: var(--green)"></div>
+          <span class="tl-step__num">01 / Collecte</span>
+          <h3 class="tl-step__title" data-fr="Collecte" data-en="Collection">Collecte</h3>
+          <div class="tl-step__svg">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M10 54 L32 10 L54 54 Z"/>
+              <path d="M20 40 L44 40"/>
+              <circle cx="32" cy="48" r="2.5" fill="currentColor"/>
+              <path d="M14 18 L4 14 M50 18 L60 14" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <p class="tl-step__desc" data-fr="Réseau rémunéré de 1 800 collecteurs informels à Dakar, Pikine, Guédiawaye. Tarif kg fixé par lot. Traçabilité par QR." data-en="Paid network of 1,800 informal collectors across Dakar, Pikine, Guédiawaye. Kilo rate fixed per batch. QR traceability.">
+            Réseau rémunéré de 1 800 collecteurs informels à Dakar, Pikine, Guédiawaye. Tarif kg fixé par lot. Traçabilité par QR.
+          </p>
+        </div>
+
+        <div class="tl-step">
+          <div class="tl-step__dot"></div>
+          <span class="tl-step__num">02 / Tri</span>
+          <h3 class="tl-step__title" data-fr="Tri" data-en="Sorting">Tri</h3>
+          <div class="tl-step__svg">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="8" y="20" width="48" height="24"/>
+              <path d="M8 32 L56 32"/>
+              <path d="M16 20 L16 44 M24 20 L24 44 M32 20 L32 44 M40 20 L40 44 M48 20 L48 44"/>
+              <circle cx="20" cy="14" r="1.5" fill="currentColor"/>
+              <circle cx="36" cy="14" r="1.5" fill="currentColor"/>
+              <circle cx="52" cy="14" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <p class="tl-step__desc" data-fr="Identification spectroscopique par caméra NIR. Séparation des polymères : PEHD pour les tampons, PP pour les briques, PET refusé." data-en="NIR-camera spectroscopic ID. Polymer separation: HDPE for covers, PP for bricks, PET rejected.">
+            Identification spectroscopique par caméra NIR. Séparation des polymères : PEHD pour les tampons, PP pour les briques, PET refusé.
+          </p>
+        </div>
+
+        <div class="tl-step">
+          <div class="tl-step__dot"></div>
+          <span class="tl-step__num">03 / Broyage</span>
+          <h3 class="tl-step__title" data-fr="Broyage" data-en="Shredding">Broyage</h3>
+          <div class="tl-step__svg">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="32" cy="32" r="22"/>
+              <path d="M20 20 L44 44 M44 20 L20 44 M32 8 L32 56 M8 32 L56 32"/>
+              <circle cx="32" cy="32" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <p class="tl-step__desc" data-fr="Granulation à lames rotatives 280 RPM. Granulométrie 4-8 mm pour la voirie, 10-14 mm pour la brique. Lavage à l'eau de pluie filtrée." data-en="280 RPM rotary-blade granulation. 4-8 mm grain for roadworks, 10-14 mm for bricks. Washing with filtered rainwater.">
+            Granulation à lames rotatives 280 RPM. Granulométrie 4-8 mm pour la voirie, 10-14 mm pour la brique. Lavage à l'eau de pluie filtrée.
+          </p>
+        </div>
+
+        <div class="tl-step">
+          <div class="tl-step__dot"></div>
+          <span class="tl-step__num">04 / Fusion</span>
+          <h3 class="tl-step__title" data-fr="Fusion" data-en="Fusion">Fusion</h3>
+          <div class="tl-step__svg">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M14 50 Q32 14, 50 50 Z"/>
+              <path d="M22 50 Q32 30, 42 50" stroke="#C8541A"/>
+              <path d="M26 50 Q32 40, 38 50" stroke="#C8541A" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <p class="tl-step__desc" data-fr="Extrusion à 230 °C sous atmosphère contrôlée (N₂). Pas d'additif chimique : la matière fusionne sur elle-même. Énergie 80% solaire." data-en="Extrusion at 230 °C under N₂ atmosphere. Zero chemical additive: the matter fuses on itself. Energy 80% solar.">
+            Extrusion à 230 °C sous atmosphère contrôlée (N₂). Pas d'additif chimique : la matière fusionne sur elle-même. Énergie 80% solaire.
+          </p>
+        </div>
+
+        <div class="tl-step">
+          <div class="tl-step__dot"></div>
+          <span class="tl-step__num">05 / Moulage</span>
+          <h3 class="tl-step__title" data-fr="Moulage" data-en="Moulding">Moulage</h3>
+          <div class="tl-step__svg">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="14" y="14" width="36" height="36" rx="2"/>
+              <path d="M20 24 L44 24 M20 30 L44 30 M20 36 L44 36 M20 42 L44 42"/>
+              <path d="M32 4 L32 14 M32 50 L32 60" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <p class="tl-step__desc" data-fr="Presse hydraulique 800 t pour les tampons. Moules emboîtables refroidis à l'eau pour les briques. Démoulage 6 min. Contrôle qualité IA 100%." data-en="800 t hydraulic press for covers. Water-cooled interlocking moulds for bricks. Demoulding in 6 min. 100% AI quality control.">
+            Presse hydraulique 800 t pour les tampons. Moules emboîtables refroidis à l'eau pour les briques. Démoulage 6 min. Contrôle qualité IA 100%.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERFORMANCE ============ -->
+<section class="section section--warm section--tight">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 40px">
+      <div class="col-span-4 rv"><span class="eyebrow"><span data-fr="Performances" data-en="Performance">Performances</span></span></div>
+      <div class="col-span-8 rv rv-1">
+        <h2 class="display" style="font-size: clamp(36px, 4vw, 60px); line-height:1.05">
+          <span data-fr="Mesuré, certifié," data-en="Measured, certified,">Mesuré, certifié,</span>
+          <em data-fr="documenté." data-en="documented.">documenté.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="perf rv rv-2">
+      <div class="perf__cell">
+        <div class="perf__num"><em>40</em><small> t</small></div>
+        <div class="perf__label" data-fr="Charge admissible" data-en="Load capacity">Charge admissible</div>
+        <p class="perf__desc" data-fr="Essai poinçonnement EN 124 sur tampon Ø600. Marge × 1,4 vs classe D400 réglementaire." data-en="EN 124 puncture test on Ø600 cover. ×1.4 safety margin vs regulatory D400 class.">Essai poinçonnement EN 124 sur tampon Ø600. Marge × 1,4 vs classe D400 réglementaire.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>0</em></div>
+        <div class="perf__label" data-fr="Corrosion en eau saumâtre" data-en="Corrosion in brackish water">Corrosion en eau saumâtre</div>
+        <p class="perf__desc" data-fr="48 mois d'immersion accélérée Dakar-Mbour. Aucune perte de masse, aucun cloquage." data-en="48 months accelerated immersion Dakar-Mbour. Zero mass loss, zero blistering.">48 mois d'immersion accélérée Dakar-Mbour. Aucune perte de masse, aucun cloquage.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>−42</em><small>%</small></div>
+        <div class="perf__label" data-fr="CO₂ vs fonte ductile" data-en="CO₂ vs ductile iron">CO₂ vs fonte ductile</div>
+        <p class="perf__desc" data-fr="Analyse de cycle de vie (ACV) indépendante 2024. Du puits au sol, transport et fin de vie inclus." data-en="Independent 2024 life-cycle analysis. Well-to-soil, transport and end-of-life included.">Analyse de cycle de vie (ACV) indépendante 2024. Du puits au sol, transport et fin de vie inclus.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>80</em><small> ans</small></div>
+        <div class="perf__label" data-fr="Durée de vie estimée" data-en="Estimated lifespan">Durée de vie estimée</div>
+        <p class="perf__desc" data-fr="Vieillissement accéléré ASTM G155 (UV, humidité, cycle thermique). Marge confortable au-delà du barème voirie." data-en="Accelerated ageing ASTM G155 (UV, humidity, thermal cycling). Comfortable margin beyond roadworks reference.">Vieillissement accéléré ASTM G155 (UV, humidité, cycle thermique). Marge confortable au-delà du barème voirie.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>1 240</em><small> T/an</small></div>
+        <div class="perf__label" data-fr="Capacité de transformation" data-en="Transformation capacity">Capacité de transformation</div>
+        <p class="perf__desc" data-fr="Site n°1 Dakar à pleine cadence. Site n°2 (Diamniadio) prévu pour 4 200 T/an en 2027." data-en="Plant n°1 Dakar at full pace. Plant n°2 (Diamniadio) projected at 4,200 T/y in 2027.">Site n°1 Dakar à pleine cadence. Site n°2 (Diamniadio) prévu pour 4 200 T/an en 2027.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>14</em><small> MPa</small></div>
+        <div class="perf__label" data-fr="Compression briques" data-en="Brick compression">Compression briques</div>
+        <p class="perf__desc" data-fr="Au-dessus de la norme NF EN 771-3 pour la maçonnerie porteuse. Mur R+1 sans renfort." data-en="Above the NF EN 771-3 standard for load-bearing masonry. R+1 wall without reinforcement.">Au-dessus de la norme NF EN 771-3 pour la maçonnerie porteuse. Mur R+1 sans renfort.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>0,28</em><small> W/m·K</small></div>
+        <div class="perf__label" data-fr="Conductivité thermique" data-en="Thermal conductivity">Conductivité thermique</div>
+        <p class="perf__desc" data-fr="Trois fois mieux qu'un parpaing ciment classique. Bâtiment 30% moins chaud, sans climatisation." data-en="Three times better than a conventional cement block. 30% cooler building, without A/C.">Trois fois mieux qu'un parpaing ciment classique. Bâtiment 30% moins chaud, sans climatisation.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>R 60</em></div>
+        <div class="perf__label" data-fr="Résistance au feu" data-en="Fire resistance">Résistance au feu</div>
+        <p class="perf__desc" data-fr="Classement REI 60 selon NF EN 1363. Auto-extinguible par retardateur naturel intégré." data-en="REI 60 rating per NF EN 1363. Self-extinguishing thanks to integrated natural retardant.">Classement REI 60 selon NF EN 1363. Auto-extinguible par retardateur naturel intégré.</p>
+      </div>
+      <div class="perf__cell">
+        <div class="perf__num"><em>100</em><small>%</small></div>
+        <div class="perf__label" data-fr="Recyclable en fin de vie" data-en="Recyclable end-of-life">Recyclable en fin de vie</div>
+        <p class="perf__desc" data-fr="La matière retourne dans le procédé. Reprise gratuite par CITABEL des produits arrivés en fin de service." data-en="The matter goes back into the process. Free take-back by CITABEL of products at end-of-service.">La matière retourne dans le procédé. Reprise gratuite par CITABEL des produits arrivés en fin de service.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MATTER CARD ============ -->
+<section class="section section--paper">
+  <div class="wrap">
+    <div class="grid-12" style="margin-bottom: 50px">
+      <div class="col-span-6 rv">
+        <span class="eyebrow"><span data-fr="La matière" data-en="The matter">La matière</span></span>
+        <h2 class="display" style="font-size: clamp(40px, 5vw, 76px); line-height: 1; margin-top: 18px">
+          <span data-fr="Plus dur" data-en="Harder">Plus dur</span><br/>
+          <em data-fr="qu'on ne croit." data-en="than you think.">qu'on ne croit.</em>
+        </h2>
+      </div>
+      <div class="col-span-5 col-start-8 rv rv-1" style="align-self: end">
+        <p class="lede" data-fr="Le composite Citabel n'est pas du « plastique recyclé ». C'est un matériau structurel à part entière, qualifié par essais et certifié pour les usages portants." data-en="The Citabel composite isn't 'recycled plastic'. It is a fully structural material, qualified by testing and certified for load-bearing uses.">
+          Le composite Citabel n'est pas du « plastique recyclé ». C'est un matériau structurel à part entière, qualifié par essais et certifié pour les usages portants.
+        </p>
+      </div>
+    </div>
+
+    <div class="matter rv rv-2">
+      <div class="matter__visual">
+        <div class="ph ph--ink ph--grid" data-label="MATERIAL SAMPLE"></div>
+        <svg style="width:70%; height: 70%; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%)" viewBox="0 0 300 300" aria-hidden="true">
+          <!-- iso block -->
+          <defs>
+            <linearGradient id="mat" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4A463E"/>
+              <stop offset="1" stop-color="#0A0A07"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#9C988B" stroke-width="1">
+            <path d="M50 200 L150 140 L250 200 L150 260 Z" fill="url(#mat)"/>
+            <path d="M50 200 L50 240 L150 300 L150 260 Z" fill="#1A1A14"/>
+            <path d="M250 200 L250 240 L150 300 L150 260 Z" fill="#0A0A07"/>
+          </g>
+          <!-- speckled fragments -->
+          <g fill="#C8541A" opacity=".7">
+            <circle cx="100" cy="190" r="2"/>
+            <circle cx="160" cy="170" r="1.5"/>
+            <circle cx="200" cy="195" r="2"/>
+            <circle cx="120" cy="220" r="1.5"/>
+            <circle cx="180" cy="240" r="2"/>
+            <circle cx="220" cy="220" r="1.5"/>
+          </g>
+          <g fill="#5C8270" opacity=".7">
+            <circle cx="80" cy="210" r="1.5"/>
+            <circle cx="170" cy="200" r="2"/>
+            <circle cx="220" cy="180" r="1.5"/>
+            <circle cx="140" cy="230" r="1.5"/>
+            <circle cx="190" cy="255" r="2"/>
+          </g>
+          <text x="150" y="40" text-anchor="middle" font-family="Geist Mono" font-size="10" letter-spacing="3" fill="#9C988B">PEHD COMPOSITE</text>
+          <line x1="150" y1="50" x2="150" y2="80" stroke="#9C988B" stroke-dasharray="3 3"/>
+        </svg>
+      </div>
+      <div class="matter__body">
+        <h3><em data-fr="Composite" data-en="Composite">Composite</em> <span data-fr="PEHD-PP densifié." data-en="HDPE-PP densified.">PEHD-PP densifié.</span></h3>
+        <ul>
+          <li><span data-fr="Base polymère" data-en="Polymer base">Base polymère</span><b>PEHD 80% / PP 20%</b></li>
+          <li><span data-fr="Densité" data-en="Density">Densité</span><b>0,98 g/cm³</b></li>
+          <li><span data-fr="Module Young" data-en="Young's modulus">Module Young</span><b>1 350 MPa</b></li>
+          <li><span data-fr="Choc Charpy" data-en="Charpy impact">Choc Charpy</span><b>22 kJ/m²</b></li>
+          <li><span data-fr="Tenue UV (5 ans)" data-en="UV resistance (5y)">Tenue UV (5 ans)</span><b>ΔL* &lt; 3</b></li>
+          <li><span data-fr="Absorption d'eau" data-en="Water absorption">Absorption d'eau</span><b>&lt; 0,02%</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section--ink section section--tight" style="padding: 100px 0">
+  <div class="wrap">
+    <div class="grid-12" style="align-items: end">
+      <div class="col-span-8 rv">
+        <h2 class="display" style="font-size: clamp(40px, 5.2vw, 88px); line-height:.98; color: #FAFAF6">
+          <span data-fr="La fiche technique" data-en="The full technical brief">La fiche technique</span><br/>
+          <em style="color: var(--green-bright)" data-fr="complète, sur demande." data-en="— upon request.">complète, sur demande.</em>
+        </h2>
+      </div>
+      <div class="col-span-4 rv rv-1" style="display:flex; flex-direction:column; align-items:flex-end; gap: 14px">
+        <a class="btn btn--green" href="contact.html#devis"><span data-fr="Recevoir le PDF" data-en="Get the PDF">Recevoir le PDF</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="btn btn--ghost" style="border-color: rgba(240,237,227,.4); color: #FAFAF6" href="about.html"><span data-fr="Visiter l'usine" data-en="Visit the plant">Visiter l'usine</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script>Citabel.mountChrome({page: 'technology'});</script>
+<script src="assets/site.js"></script>
+</body>
+</html>
