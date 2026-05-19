@@ -73,7 +73,7 @@
   .product--flip .product__grid{ direction: rtl }
   .product--flip .product__grid > *{ direction: ltr }
   .product__visual{
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/10;
     border-radius: var(--r-md);
     position: relative; overflow: hidden;
     background: var(--bg-warm);
@@ -125,114 +125,39 @@
   }
 
   /* ===== REAL PRODUCT PHOTOS ===== */
-  .product__visual--photo{ background: #0F0F0B; cursor: crosshair }
+  .product__visual--photo{ background: #0F0F0B }
   .prod-img{
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover; object-position: center;
-    transition: transform 1.4s var(--ease);
+    transition: transform 1.6s cubic-bezier(.22,.68,0,1.1);
     z-index: 1;
+    display: block;
   }
-  .product:hover .prod-img{ transform: scale(1.06) }
-  .prod-bg{ position: absolute; inset: 0; z-index: 0 } /* CSS fallback behind img */
+  .product:hover .prod-img{ transform: scale(1.055) }
+  .prod-bg{ position: absolute; inset: 0; z-index: 0 }
 
-  /* Annotation overlays */
-  .prod-annots{
-    position: absolute; inset: 0;
-    pointer-events: none; z-index: 3;
-  }
-  .prod-a{
-    position: absolute;
-    display: flex; align-items: center;
-    opacity: 0;
-    transition: opacity .5s var(--ease), transform .5s var(--ease);
-  }
-  .product:hover .prod-a{ opacity: 1 }
-  .prod-a:nth-child(1){ transition-delay: .00s }
-  .prod-a:nth-child(2){ transition-delay: .08s }
-  .prod-a:nth-child(3){ transition-delay: .16s }
-  .prod-a:nth-child(4){ transition-delay: .24s }
-  .prod-a:nth-child(5){ transition-delay: .32s }
-  .prod-a--left{
-    flex-direction: row; left: 0;
-    transform: translateX(-10px);
-  }
-  .product:hover .prod-a--left{ transform: none }
-  .prod-a--right{
-    flex-direction: row-reverse; right: 0;
-    transform: translateX(10px);
-  }
-  .product:hover .prod-a--right{ transform: none }
-  .prod-a__dot{
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--orange); flex-shrink: 0; margin: 0 8px;
-  }
-  .prod-a__line{
-    width: 48px; height: 1px;
-    background: rgba(200,84,26,.6); flex-shrink: 0;
-  }
-  .prod-a__label{
-    font-family: var(--mono); font-size: 9.5px;
-    letter-spacing: .11em; text-transform: uppercase;
-    color: #F0EDE3; line-height: 1.45;
-    text-shadow: 0 1px 12px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,.9);
-    background: rgba(0,0,0,.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 5px 10px; white-space: nowrap;
-  }
-
-  /* Product showcase hero */
+  /* Product showcase hero — full-width clean image, no overlay */
   .prod-showcase{
-    position: relative; height: 68vh; min-height: 440px;
+    position: relative; height: 80vh; min-height: 520px; max-height: 900px;
     overflow: hidden; background: #0A0A07;
   }
   .prod-showcase__img{
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover; object-position: center 62%;
-    opacity: .82;
-    transition: transform 10s linear;
-    transform: scale(1.08);
+    object-fit: cover; object-position: center 55%;
+    opacity: 1;
+    transition: transform 12s linear;
+    transform: scale(1.06);
+    display: block;
   }
   .prod-showcase.is-in .prod-showcase__img{ transform: scale(1.0) }
-  .prod-showcase__vignette{
-    position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(105deg, rgba(10,10,7,.88) 0%, rgba(10,10,7,.18) 55%, rgba(10,10,7,.55) 100%);
-  }
-  .prod-showcase__content{
-    position: relative; z-index: 2; height: 100%;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 0 var(--gutter); max-width: 600px;
-  }
-  .prod-showcase__kicker{
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: var(--orange); margin-bottom: 20px;
-  }
-  .prod-showcase__title{
-    font-family: var(--display);
-    font-size: clamp(38px, 5vw, 80px);
-    line-height: .98; letter-spacing: -.025em; color: #FAFAF6;
-  }
-  .prod-showcase__title em{ color: var(--green-bright); font-style: italic }
-  .prod-showcase__sub{
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: .12em; color: #B7B4A7;
-    margin-top: 22px; line-height: 1.8; max-width: 46ch;
-  }
-  .prod-showcase__badges{
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
-  }
-  .prod-showcase__badge{
-    border: 1px solid rgba(200,84,26,.5);
-    color: rgba(240,237,227,.8);
-    padding: 5px 14px; border-radius: 999px;
-    font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-  }
-  @media (max-width: 768px){
-    .prod-showcase__content{ max-width: 100% }
-    .prod-annots{ display: none }
+  /* very subtle bottom fade so nav bar reads against any image */
+  .prod-showcase::after{
+    content: ''; position: absolute; inset: auto 0 0;
+    height: 120px; z-index: 1;
+    background: linear-gradient(to top, rgba(10,10,7,.35) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   /* manhole svg */
@@ -296,29 +221,14 @@
 </section>
 
 <!-- ============ PRODUCT SHOWCASE HERO ============ -->
-<section class="prod-showcase rv" id="showcase">
-  <div class="prod-bg ph ph--ink ph--grid" aria-hidden="true"></div>
-  <img class="prod-showcase__img"
-       src="/assets/images/tampon-rond-d400.jpg"
-       alt="Tampon de regard rond CITABEL SARL — EN 124-5 D400, ONAS Assainissement Sénégal, composite recyclé"
-       loading="eager" width="2816" height="1536" />
-  <div class="prod-showcase__vignette"></div>
-  <div class="prod-showcase__content">
-    <div class="prod-showcase__kicker">CITABEL SARL · Dakar, Sénégal · EN 124-5</div>
-    <h2 class="prod-showcase__title">
-      <span data-fr="Fabriqué ici." data-en="Made here.">Fabriqué ici.</span><br/>
-      <em data-fr="Conçu pour durer." data-en="Built to last.">Conçu pour durer.</em>
-    </h2>
-    <p class="prod-showcase__sub" data-fr="Composite SMC recyclé · Classe D400 · Anti-vol · Anti-corrosion · Logo client moulé" data-en="Recycled SMC composite · Class D400 · Theft-proof · Corrosion-free · Moulded client logo">
-      Composite SMC recyclé · Classe D400 · Anti-vol · Anti-corrosion · Logo client moulé
-    </p>
-    <div class="prod-showcase__badges">
-      <span class="prod-showcase__badge">EN 124-5</span>
-      <span class="prod-showcase__badge">D400</span>
-      <span class="prod-showcase__badge" data-fr="Fabriqué au Sénégal" data-en="Made in Senegal">Fabriqué au Sénégal</span>
-      <span class="prod-showcase__badge" data-fr="-65% CO₂" data-en="-65% CO₂">-65% CO₂</span>
-    </div>
-  </div>
+<section class="prod-showcase" id="showcase" aria-label="Tampon de regard CITABEL D400">
+  <picture>
+    <source srcset="/assets/images/tampon-rond-d400.webp" type="image/webp" />
+    <img class="prod-showcase__img"
+         src="/assets/images/tampon-rond-d400.jpg"
+         alt="Tampon de regard rond composite CITABEL — ONAS EN 124-5 D400, classe lourde, fabriqué au Sénégal"
+         loading="eager" fetchpriority="high" width="2816" height="1536" />
+  </picture>
 </section>
 
 <!-- ============ CAT NAV ============ -->
@@ -357,33 +267,13 @@
       </div>
       <div class="rv rv-1">
         <div class="product__visual product__visual--photo">
-          <div class="prod-bg ph ph--ink ph--grid" aria-hidden="true"></div>
-          <img class="prod-img"
-               src="/assets/images/tampon-onas-c250.jpg"
-               alt="Tampon de regard carré composite CITABEL — ONAS EN 124-5 C250, joint hydraulique, structure nervurée SMC, Dakar Sénégal"
-               loading="lazy" width="2816" height="1536" />
-          <div class="prod-annots">
-            <div class="prod-a prod-a--left" style="top:32%">
-              <div class="prod-a__dot"></div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__label">Joint Hydraulique<br>d'Étanchéité</div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:17%">
-              <div class="prod-a__label">Système de Verrouillage<br>à Ressort</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:38%">
-              <div class="prod-a__label">Structure Nervurée SMC</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:55%">
-              <div class="prod-a__label">Insert de Logo Personnalisé</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-          </div>
+          <picture>
+            <source srcset="/assets/images/tampon-onas-c250.webp" type="image/webp" />
+            <img class="prod-img"
+                 src="/assets/images/tampon-onas-c250.jpg"
+                 alt="Tampon de regard carré composite CITABEL — ONAS EN 124-5 C250, structure nervurée SMC, Dakar Sénégal"
+                 loading="lazy" width="2816" height="1536" />
+          </picture>
         </div>
       </div>
     </div>
@@ -414,38 +304,13 @@
       </div>
       <div class="rv rv-1">
         <div class="product__visual product__visual--photo">
-          <div class="prod-bg ph ph--concrete" aria-hidden="true"></div>
-          <img class="prod-img"
-               src="/assets/images/grille-ageroute-d400.jpg"
-               alt="Grille avaloir composite CITABEL — AGEROUTE EN 124-5 D400, fentes de drainage longitudinales, verrouillage sécurisé, Dakar Sénégal"
-               loading="lazy" width="2816" height="1536" />
-          <div class="prod-annots">
-            <div class="prod-a prod-a--left" style="top:20%">
-              <div class="prod-a__dot"></div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__label">Grille Avaloir<br>Rectangulaire SMC</div>
-            </div>
-            <div class="prod-a prod-a--left" style="top:45%">
-              <div class="prod-a__dot"></div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__label">Fentes de Drainage<br>Longitudinales</div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:22%">
-              <div class="prod-a__label">Système de Verrouillage<br>de Sécurité</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:42%">
-              <div class="prod-a__label">Structure Nervurée SMC</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-            <div class="prod-a prod-a--right" style="top:62%">
-              <div class="prod-a__label">Insert de Logo Personnalisé</div>
-              <div class="prod-a__line"></div>
-              <div class="prod-a__dot"></div>
-            </div>
-          </div>
+          <picture>
+            <source srcset="/assets/images/grille-ageroute-d400.webp" type="image/webp" />
+            <img class="prod-img"
+                 src="/assets/images/grille-ageroute-d400.jpg"
+                 alt="Grille avaloir composite CITABEL — AGEROUTE EN 124-5 D400, fentes de drainage longitudinales, Dakar Sénégal"
+                 loading="lazy" width="2816" height="1536" />
+          </picture>
         </div>
       </div>
     </div>
@@ -750,10 +615,9 @@
 (function(){
   var sc = document.querySelector('.prod-showcase');
   if(!sc) return;
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ sc.classList.toggle('is-in', e.isIntersecting); });
-  }, { threshold: 0.1 });
-  io.observe(sc);
+  new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting) sc.classList.add('is-in');
+  }, { threshold: 0.05 }).observe(sc);
 })();
 </script>
 </body>
