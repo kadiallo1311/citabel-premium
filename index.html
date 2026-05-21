@@ -90,46 +90,119 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap">
-    <div class="rv">
-      <span class="eyebrow"><span data-fr="Sénégal · Économie circulaire · Bâti" data-en="Senegal · Circular economy · Built environment">Sénégal · Économie circulaire · Bâti</span></span>
+<style>
+.hero--cinema{
+  position:relative; height:100svh; min-height:620px;
+  overflow:hidden; background:#08080A;
+  display:flex; align-items:center;
+}
+.cinema-track{ position:absolute; inset:0 }
+.cinema-slide{
+  position:absolute; inset:0; opacity:0;
+  transition:opacity 2s cubic-bezier(.4,0,.2,1);
+}
+.cinema-slide--on{ opacity:1 }
+.cinema-slide img{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  animation:kb 16s ease-in-out forwards; will-change:transform;
+}
+@keyframes kb{ from{transform:scale(1.09)} to{transform:scale(1.01)} }
+.cinema-overlay{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(to right, rgba(8,8,10,.80) 0%, rgba(8,8,10,.22) 58%, rgba(8,8,10,.48) 100%),
+    linear-gradient(to top,   rgba(8,8,10,.55) 0%, transparent 40%);
+}
+.cinema-content{
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:flex-start; gap:24px;
+}
+.cinema-eyebrow{
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--orange);
+}
+.cinema-title{
+  font-size:clamp(54px,9.5vw,156px);
+  line-height:.91; letter-spacing:-.03em; color:#F5F2EA; max-width:13ch;
+}
+.cinema-title em{ color:var(--green-bright) }
+.cinema-sub{
+  font-size:clamp(15px,1.25vw,18px); color:rgba(245,242,234,.65);
+  line-height:1.68; max-width:44ch;
+}
+.cinema-cta{ display:flex; gap:12px; flex-wrap:wrap }
+.cinema-ghost{ border-color:rgba(245,242,234,.35); color:#F5F2EA }
+.cinema-nav{
+  position:absolute; bottom:36px; left:var(--gutter); z-index:3;
+  display:flex; gap:10px; align-items:center;
+}
+.cinema-dot{
+  height:2px; width:30px; padding:0; border:none;
+  background:rgba(245,242,234,.22); border-radius:2px; cursor:pointer;
+  transition:width .35s var(--ease), background .35s var(--ease);
+}
+.cinema-dot--on{ width:52px; background:var(--orange) }
+.cinema-scroll{
+  position:absolute; right:var(--gutter); bottom:40px; z-index:3;
+  width:1px; height:60px;
+  background:linear-gradient(to bottom, transparent, rgba(245,242,234,.3) 40%, rgba(245,242,234,.3));
+  animation:scrollpulse 2.6s ease-in-out infinite;
+}
+@keyframes scrollpulse{
+  0%,100%{transform:scaleY(0);transform-origin:top}
+  40%{transform:scaleY(1);transform-origin:top}
+  41%{transform-origin:bottom}
+  80%{transform:scaleY(0);transform-origin:bottom}
+}
+@media(max-width:768px){
+  .cinema-title{font-size:clamp(46px,13vw,80px)}
+  .cinema-sub{display:none}
+  .cinema-scroll{display:none}
+}
+</style>
+
+<section class="hero hero--cinema" id="hero" aria-label="CITABEL — Made in Senegal for Africa">
+  <div class="cinema-track" aria-hidden="true">
+    <div class="cinema-slide cinema-slide--on">
+      <img src="/assets/images/tampon-rond-d400.png"
+           alt="Tampon de regard CITABEL ONAS D400, installé à Dakar"
+           loading="eager" fetchpriority="high" />
     </div>
-    <h1 class="hero__title display rv rv-1">
+    <div class="cinema-slide">
+      <img src="/assets/images/habitat-citabel.png"
+           alt="Logements modulaires CITABEL en briques emboîtables recyclées, Sénégal"
+           loading="lazy" />
+    </div>
+  </div>
+  <div class="cinema-overlay" aria-hidden="true"></div>
+
+  <div class="cinema-content wrap">
+    <div class="cinema-eyebrow rv">
+      <span data-fr="Dakar, Sénégal · Industrie circulaire" data-en="Dakar, Senegal · Circular industry">Dakar, Sénégal · Industrie circulaire</span>
+    </div>
+    <h1 class="cinema-title display rv rv-1">
       <span data-fr="Made in Senegal" data-en="Made in Senegal">Made in Senegal</span><br/>
       <em data-fr="for Africa." data-en="for Africa.">for Africa.</em>
     </h1>
-    <div class="hero__row rv rv-2">
-      <p class="lede">
-        <span data-fr="CITABEL transforme les déchets plastiques en infrastructures et en habitat. Tampons de regards, grilles avaloirs, regards hydrauliques composites — et logements modulaires en briques emboîtables. Fabriqué au Sénégal, conçu pour l'Afrique." data-en="CITABEL turns plastic waste into infrastructure and housing. Composite manhole covers, gully grates, hydraulic chambers — and modular homes built from interlocking recycled bricks. Made in Senegal, engineered for Africa.">
-          CITABEL transforme les déchets plastiques en infrastructures et en habitat. Tampons de regards, grilles avaloirs, regards hydrauliques composites — et logements modulaires en briques emboîtables. Fabriqué au Sénégal, conçu pour l'Afrique.
-        </span>
-      </p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end">
-        <a class="btn btn--primary" href="solutions.html">
-          <span data-fr="Découvrir nos solutions" data-en="Explore solutions">Découvrir nos solutions</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
-        </a>
-        <a class="btn btn--ghost" href="contact.html#devis"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span></a>
-      </div>
-    </div>
-
-    <div class="hero__visual rv rv-3" data-hero>
-      <!-- visual injected by site.js -->
-    </div>
-    <div class="hero__visual-wrap" style="position:relative">
-      <div class="hero__overlay">
-        <div>
-          <span class="kicker" data-fr="Site n°01 / Dakar" data-en="Plant n°01 / Dakar">Site n°01 / Dakar</span>
-          <h3 class="display" data-fr="Une usine. Trois lignes de production. Une ambition continentale." data-en="One plant. Three production lines. A continental ambition.">Une usine. Trois lignes de production. Une ambition continentale.</h3>
-        </div>
-        <div class="hero__meta">
-          14° 41′ N · 17° 26′ W<br/>
-          <span data-fr="Mise en service 2024" data-en="Commissioned 2024">Mise en service 2024</span>
-        </div>
-      </div>
+    <p class="cinema-sub rv rv-2">
+      <span data-fr="Du polymère recyclé aux infrastructures urbaines et au logement. Tampons de regards, grilles avaloirs, systèmes de drainage, maisons emboîtables — tout conçu et fabriqué à Dakar." data-en="From recycled polymer to urban infrastructure and modular housing. Manhole covers, gully grates, drainage systems, interlocking homes — all designed and manufactured in Dakar.">Du polymère recyclé aux infrastructures urbaines et au logement. Tampons de regards, grilles avaloirs, systèmes de drainage, maisons emboîtables — tout conçu et fabriqué à Dakar.</span>
+    </p>
+    <div class="cinema-cta rv rv-3">
+      <a class="btn btn--primary" href="solutions.html">
+        <span data-fr="Nos produits" data-en="Our products">Nos produits</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
+      <a class="btn btn--ghost cinema-ghost" href="contact.html#devis">
+        <span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span>
+      </a>
     </div>
   </div>
+
+  <div class="cinema-nav" role="group" aria-label="Navigation diaporama">
+    <button class="cinema-dot cinema-dot--on" data-slide="0" aria-label="Image 1 — Tampon de regard"></button>
+    <button class="cinema-dot" data-slide="1" aria-label="Image 2 — Logements modulaires"></button>
+  </div>
+  <div class="cinema-scroll" aria-hidden="true"></div>
 </section>
 
 <!-- ============ BRIEF / INTRO ============ -->
@@ -141,9 +214,8 @@
       </div>
       <div class="col-span-8 rv rv-1">
         <p class="display" style="font-size: clamp(28px, 3.4vw, 56px); line-height:1.05; max-width: 22ch">
-          <span data-fr="Nous ne fabriquons pas des produits. Nous fabriquons des" data-en="We don't make products. We make">Nous ne fabriquons pas des produits. Nous fabriquons des</span>
-          <em data-fr="boucles fermées" data-en="closed loops">boucles fermées</em>
-          <span data-fr=" : déchets → matière → infrastructure → ville." data-en=": waste → matter → infrastructure → city.">&nbsp;: déchets → matière → infrastructure → ville.</span>
+          <span data-fr="La matière première de CITABEL, c'est un problème à résoudre. Le plastique usagé, collecté, fondu, moulé — devient une" data-en="CITABEL's raw material is a problem to be solved. Waste plastic, collected, melted, moulded — becomes a">La matière première de CITABEL, c'est un problème à résoudre. Le plastique usagé, collecté, fondu, moulé — devient une</span>
+          <em data-fr="infrastructure certifiée." data-en="certified infrastructure.">infrastructure certifiée.</em>
         </p>
       </div>
     </div>
@@ -154,7 +226,7 @@
 <section style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-warm)">
   <div class="marquee__row">
     <div class="marquee" aria-hidden="true">
-      <span class="kicker">★ Made in Senegal</span><span class="kicker">Recycled Polymer Composites</span><span class="kicker">Modular Architecture</span><span class="kicker">ISO 1083 — Mechanical Class D400</span><span class="kicker">Carbon-negative process</span><span class="kicker">★ Made in Senegal</span><span class="kicker">Recycled Polymer Composites</span><span class="kicker">Modular Architecture</span><span class="kicker">ISO 1083 — Mechanical Class D400</span><span class="kicker">Carbon-negative process</span>
+      <span class="kicker">CITABEL SARL · Dakar</span><span class="kicker">EN 124-5 · Classe D400</span><span class="kicker">Composite SMC recyclé</span><span class="kicker">ONAS · AGEROUTE · Eiffage</span><span class="kicker">Zéro additif · Zéro rejet</span><span class="kicker">★ Made in Senegal for Africa</span><span class="kicker">Logements modulaires sans mortier</span><span class="kicker">Certification indépendante 2024</span><span class="kicker">CITABEL SARL · Dakar</span><span class="kicker">EN 124-5 · Classe D400</span><span class="kicker">Composite SMC recyclé</span><span class="kicker">ONAS · AGEROUTE · Eiffage</span><span class="kicker">Zéro additif · Zéro rejet</span><span class="kicker">★ Made in Senegal for Africa</span><span class="kicker">Logements modulaires sans mortier</span><span class="kicker">Certification indépendante 2024</span>
     </div>
   </div>
 </section>
@@ -188,8 +260,8 @@
         <div class="card__body">
           <span class="card__num">01 — <span data-fr="Voirie &amp; assainissement" data-en="Roads &amp; drainage">Voirie &amp; assainissement</span></span>
           <h3 class="card__title display"><em data-fr="Tampons" data-en="Manhole">Tampons</em> <span data-fr="composites, grilles avaloirs, regards hydrauliques." data-en="composite covers, gully grates, hydraulic chambers.">composites, grilles avaloirs, regards hydrauliques.</span></h3>
-          <p class="card__desc" data-fr="Plus légers que la fonte, insensibles à la corrosion et au vol. Classes A15 à D400. Posés à Dakar, Thiès, Saint-Louis." data-en="Lighter than cast iron, immune to corrosion and theft. Classes A15 to D400. Installed in Dakar, Thiès, Saint-Louis.">
-            Plus légers que la fonte, insensibles à la corrosion et au vol. Classes A15 à D400. Posés à Dakar, Thiès, Saint-Louis.
+          <p class="card__desc" data-fr="Plus légers que la fonte, sans valeur marchande pour les voleurs, insensibles à la corrosion. Certifiés EN 124-5, classes A15 à D400. Posés sur les principaux axes de Dakar, Thiès et Saint-Louis." data-en="Lighter than cast iron, with no scrap value, immune to corrosion. EN 124-5 certified, classes A15 to D400. Installed on the main road networks of Dakar, Thiès and Saint-Louis.">
+            Plus légers que la fonte, sans valeur marchande pour les voleurs, insensibles à la corrosion. Certifiés EN 124-5, classes A15 à D400. Posés sur les principaux axes de Dakar, Thiès et Saint-Louis.
           </p>
           <div style="margin-top: 12px" class="btn btn--text"><span data-fr="Voir les produits" data-en="See products">Voir les produits</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></div>
         </div>
@@ -197,25 +269,16 @@
 
       <a class="card col-span-6 rv rv-2" href="solutions.html#habitat" style="text-decoration:none; color:inherit">
         <div class="card__media">
-          <div class="ph ph--forest" data-label="02 / Habitat">
-            <svg viewBox="0 0 400 300" style="width:90%;height:90%;position:relative;z-index:1" aria-hidden="true">
-              <g stroke="rgba(240,237,227,.55)" stroke-width="1" fill="rgba(240,237,227,.06)">
-                <path d="M60 180 L200 110 L340 180 L200 250 Z"/>
-                <path d="M60 180 L60 220 L200 290 L200 250"/>
-                <path d="M340 180 L340 220 L200 290 L200 250"/>
-              </g>
-              <g stroke="rgba(240,237,227,.4)" stroke-width=".5" fill="none">
-                <path d="M100 175 L240 105 M140 165 L280 95 M180 155 L320 85 M120 195 L260 125 M160 185 L300 115 M200 175 L340 105"/>
-              </g>
-              <text x="200" y="280" text-anchor="middle" font-family="Geist Mono" font-size="9" letter-spacing="2" fill="rgba(240,237,227,.7)">MODULAR · INTERLOCKING · ZERO MORTAR</text>
-            </svg>
-          </div>
+          <img class="card__photo"
+               src="/assets/images/habitat-citabel.png"
+               alt="Logements modulaires CITABEL en briques emboîtables recyclées, développement immobilier durable au Sénégal"
+               loading="lazy" />
         </div>
         <div class="card__body">
           <span class="card__num">02 — <span data-fr="Architecture modulaire" data-en="Modular architecture">Architecture modulaire</span></span>
-          <h3 class="card__title display"><em data-fr="Logements" data-en="Modular">Logements</em> <span data-fr="modulaires en briques emboîtables recyclées." data-en="housing built from interlocking recycled bricks.">modulaires en briques emboîtables recyclées.</span></h3>
-          <p class="card__desc" data-fr="Sans mortier, montés en quelques jours, isolés naturellement. Pour le social, l'urgence, l'éducation et le tourisme rural." data-en="Mortar-free, assembled in days, naturally insulated. For social housing, emergency shelter, schools and rural tourism.">
-            Sans mortier, montés en quelques jours, isolés naturellement. Pour le social, l'urgence, l'éducation et le tourisme rural.
+          <h3 class="card__title display"><em data-fr="Logements" data-en="Modular">Logements</em> <span data-fr="modulaires en briques emboîtables." data-en="housing in interlocking bricks.">modulaires en briques emboîtables.</span></h3>
+          <p class="card__desc" data-fr="Briques sans mortier, pose en quelques jours, isolation thermique naturelle. Une réponse concrète aux besoins de logement abordable, durable et rapide à construire." data-en="Mortar-free bricks, installation in days, natural thermal insulation. A practical answer to the need for affordable, durable, fast-to-build housing.">
+            Briques sans mortier, pose en quelques jours, isolation thermique naturelle. Une réponse concrète aux besoins de logement abordable, durable et rapide à construire.
           </p>
           <div style="margin-top: 12px" class="btn btn--text"><span data-fr="Découvrir l'habitat" data-en="Explore housing">Découvrir l'habitat</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></div>
         </div>
@@ -249,7 +312,7 @@
         <div class="stat">
           <div class="stat__num"><em data-count="3200" data-suffix="">0</em></div>
           <div class="stat__label" data-fr="Tampons posés" data-en="Covers installed">Tampons posés</div>
-          <p class="stat__desc" data-fr="Sur les voiries de Dakar, Diamniadio, Thiès, Mbour, Saint-Louis et bientôt Abidjan." data-en="Across the road networks of Dakar, Diamniadio, Thiès, Mbour, Saint-Louis — and soon Abidjan.">Sur les voiries de Dakar, Diamniadio, Thiès, Mbour, Saint-Louis et bientôt Abidjan.</p>
+          <p class="stat__desc" data-fr="Sur les axes urbains de Dakar, Diamniadio, Thiès, Mbour et Saint-Louis." data-en="On the urban road networks of Dakar, Diamniadio, Thiès, Mbour and Saint-Louis.">Sur les axes urbains de Dakar, Diamniadio, Thiès, Mbour et Saint-Louis.</p>
         </div>
       </div>
       <div class="col-span-4 rv rv-2">
@@ -276,8 +339,8 @@
       <div class="col-span-4 rv rv-5">
         <div class="stat">
           <div class="stat__num"><em data-count="14" data-suffix="">0</em></div>
-          <div class="stat__label" data-fr="Pays cibles 2030" data-en="Target countries 2030">Pays cibles 2030</div>
-          <p class="stat__desc" data-fr="CEDEAO + Maroc + RDC. Stratégie de licence usine-locale, brique-locale." data-en="ECOWAS + Morocco + DRC. Local-plant, local-brick licensing strategy.">CEDEAO + Maroc + RDC. Stratégie de licence usine-locale, brique-locale.</p>
+          <div class="stat__label" data-fr="Clients institutionnels" data-en="Institutional clients">Clients institutionnels</div>
+          <p class="stat__desc" data-fr="ONAS, AGEROUTE, Eiffage Sénégal, Ville de Dakar — parmi nos principaux donneurs d'ordre." data-en="ONAS, AGEROUTE, Eiffage Senegal, City of Dakar — among our main institutional clients.">ONAS, AGEROUTE, Eiffage Sénégal, Ville de Dakar — parmi nos principaux donneurs d'ordre.</p>
         </div>
       </div>
     </div>
@@ -296,11 +359,11 @@
         </h2>
       </div>
       <div class="col-span-5 col-start-8 rv rv-1">
-        <p class="lede" style="color: #C7C4B7" data-fr="Collecte informelle, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Une matière homogène, dense, traçable — certifiée pour la voirie comme pour l'habitat." data-en="Informal collection, spectroscopic sorting, shredding, fusion at 230 °C, high-pressure moulding. A homogeneous, dense, traceable matter — certified for roads as for housing.">
-          Collecte informelle, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Une matière homogène, dense, traçable — certifiée pour la voirie comme pour l'habitat.
+        <p class="lede" style="color: #C7C4B7" data-fr="Collecte locale, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Cinq étapes suffisent à produire une matière homogène, dense et traçable — certifiée pour la voirie comme pour le bâti." data-en="Local collection, spectroscopic sorting, shredding, fusion at 230 °C, high-pressure moulding. Five steps to produce a homogeneous, dense, traceable material — certified for roads and buildings alike.">
+          Collecte locale, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Cinq étapes suffisent à produire une matière homogène, dense et traçable — certifiée pour la voirie comme pour le bâti.
         </p>
         <a class="btn btn--ghost" style="margin-top: 24px; border-color: rgba(240,237,227,.4); color: #FAFAF6" href="technology.html">
-          <span data-fr="Plonger dans la technologie" data-en="Dive into the technology">Plonger dans la technologie</span>
+          <span data-fr="Notre procédé en détail" data-en="Our process in detail">Notre procédé en détail</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
         </a>
       </div>
@@ -513,8 +576,8 @@
     <div class="grid-12" style="align-items:end">
       <div class="col-span-8 rv">
         <h2 class="display" style="font-size: clamp(40px, 5.5vw, 96px); line-height: .98; color: #FAFAF6">
-          <span data-fr="Construire le prochain" data-en="Build the next">Construire le prochain</span><br/>
-          <em style="color: var(--green-bright)" data-fr="kilomètre de ville." data-en="kilometre of city.">kilomètre de ville.</em>
+          <span data-fr="Votre projet mérite" data-en="Your project deserves">Votre projet mérite</span><br/>
+          <em style="color: var(--green-bright)" data-fr="de meilleurs matériaux." data-en="better materials.">de meilleurs matériaux.</em>
         </h2>
       </div>
       <div class="col-span-4 rv rv-1" style="display:flex; flex-direction:column; align-items:flex-end; gap:14px">
@@ -578,5 +641,27 @@
 </footer>
 
 <script src="assets/site.js"></script>
+<script>
+/* Cinematic hero slideshow */
+(function(){
+  var track = document.querySelector('.cinema-track');
+  if (!track) return;
+  var slides = track.querySelectorAll('.cinema-slide');
+  var dots   = document.querySelectorAll('.cinema-dot');
+  var cur = 0, timer;
+  function goTo(i){
+    slides[cur].classList.remove('cinema-slide--on');
+    dots[cur] && dots[cur].classList.remove('cinema-dot--on');
+    cur = i;
+    var img = slides[cur].querySelector('img');
+    if(img){ var f=img.cloneNode(true); img.parentNode.replaceChild(f,img); }
+    slides[cur].classList.add('cinema-slide--on');
+    dots[cur] && dots[cur].classList.add('cinema-dot--on');
+  }
+  function arm(){ clearInterval(timer); timer = setInterval(function(){ goTo((cur+1)%slides.length); }, 9000); }
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); arm(); }); });
+  arm();
+})();
+</script>
 </body>
 </html>
