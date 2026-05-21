@@ -237,16 +237,16 @@
 <!-- ============ TWO PILLARS ============ -->
 <section class="section section--paper">
   <div class="wrap">
-    <div class="grid-12" style="margin-bottom: 72px; align-items: end">
-      <div class="col-span-5 rv">
-        <span class="eyebrow"><span data-fr="Deux métiers" data-en="Two practices">Deux métiers</span></span>
-        <h2 class="display rv-1" style="font-size: clamp(40px, 5vw, 80px); margin-top: 18px">
+    <div class="grid-12" style="margin-bottom: 64px; align-items: stretch">
+
+      <!-- Colonne gauche : texte empilé verticalement dans une seule colonne -->
+      <div class="col-span-7" style="display:flex; flex-direction:column; gap:22px">
+        <span class="eyebrow rv"><span data-fr="Deux métiers" data-en="Two practices">Deux métiers</span></span>
+        <h2 class="display rv rv-1" style="font-size: clamp(40px, 5vw, 80px); margin:0">
           <span data-fr="Infrastructures" data-en="Infrastructure">Infrastructures</span><br/>
           <em data-fr="&amp; Habitat." data-en="&amp; Housing.">&amp; Habitat.</em>
         </h2>
-      </div>
-      <div class="col-span-6 col-start-7 rv rv-2">
-        <p class="lede" style="max-width:none; margin-bottom:32px" data-fr="Le même plastique recyclé sert la chaussée le matin et le logement le soir. CITABEL fabrique les deux, dans la même usine, avec le même procédé." data-en="The same recycled plastic serves the road in the morning and housing in the evening. CITABEL makes both, in the same plant, with the same process.">
+        <p class="lede rv rv-2" style="max-width:none; margin:0" data-fr="Le même plastique recyclé sert la chaussée le matin et le logement le soir. CITABEL fabrique les deux, dans la même usine, avec le même procédé." data-en="The same recycled plastic serves the road in the morning and housing in the evening. CITABEL makes both, in the same plant, with the same process.">
           Le même plastique recyclé sert la chaussée le matin et le logement le soir. CITABEL fabrique les deux, dans la même usine, avec le même procédé.
         </p>
         <div class="pillar-specs rv rv-3">
@@ -256,6 +256,23 @@
           <span class="spec-pill" data-fr="Zéro additif" data-en="No additive">Zéro additif</span>
         </div>
       </div>
+
+      <!-- Colonne droite : bloc références institutionnelles -->
+      <div class="col-span-5 rv rv-2">
+        <div class="pillar-cert">
+          <div class="pillar-cert__tag" data-fr="Références institutionnelles" data-en="Institutional references">Références institutionnelles</div>
+          <div class="pillar-cert__clients">
+            <div class="pillar-cert__name">ONAS</div>
+            <div class="pillar-cert__name">AGEROUTE</div>
+            <div class="pillar-cert__name">Eiffage Sénégal</div>
+          </div>
+          <div class="pillar-cert__rule"></div>
+          <p class="pillar-cert__note" data-fr="Tampons certifiés EN 124-5, classes A15 à D400. Posés sur les réseaux de voirie de Dakar, Thiès et Saint-Louis depuis 2024." data-en="EN 124-5 certified covers, classes A15 to D400. Installed on road networks in Dakar, Thiès and Saint-Louis since 2024.">
+            Tampons certifiés EN 124-5, classes A15 à D400. Posés sur les réseaux de voirie de Dakar, Thiès et Saint-Louis depuis 2024.
+          </p>
+        </div>
+      </div>
+
     </div>
 
     <div class="grid-12">
@@ -482,12 +499,31 @@
     transition:border-color .25s var(--ease), color .25s var(--ease);
   }
   .spec-pill:hover{ border-color:var(--ink); color:var(--ink) }
+  .pillar-cert{
+    border:1px solid var(--line-strong); border-radius:var(--r-md);
+    padding:clamp(24px,2.8vw,40px); display:flex; flex-direction:column; gap:18px;
+    height:100%; background:var(--bg-warm);
+  }
+  .pillar-cert__tag{
+    font-family:var(--mono); font-size:10px; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--ink-mute);
+  }
+  .pillar-cert__clients{ display:flex; flex-direction:column; gap:2px }
+  .pillar-cert__name{
+    font-family:var(--display); font-size:clamp(26px,2.4vw,40px);
+    line-height:1.05; letter-spacing:-.02em; color:var(--ink);
+  }
+  .pillar-cert__rule{ height:1px; background:var(--line-strong) }
+  .pillar-cert__note{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 }
   .pillar-deco{
     position:absolute; right:var(--gutter); top:50%; transform:translateY(-50%);
     width:clamp(160px,18vw,320px); height:auto; opacity:.06; pointer-events:none;
     color:var(--ink);
   }
-  @media(max-width:980px){ .pillar-deco{ display:none } }
+  @media(max-width:980px){
+    .pillar-deco{ display:none }
+    .pillar-cert{ height:auto }
+  }
 </style>
 
 <!-- ============ GALLERY TEASER ============ -->
