@@ -110,30 +110,32 @@
 .cinema-overlay{
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(to right, rgba(8,8,10,.80) 0%, rgba(8,8,10,.22) 58%, rgba(8,8,10,.48) 100%),
-    linear-gradient(to top,   rgba(8,8,10,.55) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 48%, rgba(8,8,10,.10) 0%, rgba(8,8,10,.68) 100%),
+    linear-gradient(to top, rgba(8,8,10,.75) 0%, transparent 55%),
+    linear-gradient(to bottom, rgba(8,8,10,.40) 0%, transparent 30%);
 }
 .cinema-content{
   position:relative; z-index:2;
-  display:flex; flex-direction:column; align-items:flex-start; gap:24px;
+  display:flex; flex-direction:column; align-items:center; gap:28px;
+  text-align:center; width:100%;
 }
 .cinema-eyebrow{
   font-family:var(--mono); font-size:11px;
   letter-spacing:.22em; text-transform:uppercase; color:var(--orange);
 }
 .cinema-title{
-  font-size:clamp(54px,9.5vw,156px);
-  line-height:.91; letter-spacing:-.03em; color:#F5F2EA; max-width:13ch;
+  font-size:clamp(58px,10.5vw,168px);
+  line-height:.90; letter-spacing:-.035em; color:#F5F2EA;
 }
-.cinema-title em{ color:var(--green-bright) }
+.cinema-title em{ color:var(--green-bright); font-style:italic }
 .cinema-sub{
-  font-size:clamp(15px,1.25vw,18px); color:rgba(245,242,234,.65);
-  line-height:1.68; max-width:44ch;
+  font-size:clamp(15px,1.2vw,18px); color:rgba(245,242,234,.72);
+  line-height:1.65; max-width:46ch;
 }
-.cinema-cta{ display:flex; gap:12px; flex-wrap:wrap }
+.cinema-cta{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center }
 .cinema-ghost{ border-color:rgba(245,242,234,.35); color:#F5F2EA }
 .cinema-nav{
-  position:absolute; bottom:36px; left:var(--gutter); z-index:3;
+  position:absolute; bottom:36px; left:50%; transform:translateX(-50%); z-index:3;
   display:flex; gap:10px; align-items:center;
 }
 .cinema-dot{
@@ -155,9 +157,10 @@
   80%{transform:scaleY(0);transform-origin:bottom}
 }
 @media(max-width:768px){
-  .cinema-title{font-size:clamp(46px,13vw,80px)}
-  .cinema-sub{display:none}
+  .cinema-title{font-size:clamp(48px,14vw,86px)}
+  .cinema-sub{font-size:14px; max-width:34ch}
   .cinema-scroll{display:none}
+  .cinema-cta .cinema-ghost{display:none}
 }
 </style>
 
@@ -178,14 +181,14 @@
 
   <div class="cinema-content wrap">
     <div class="cinema-eyebrow rv">
-      <span data-fr="Dakar, Sénégal · Industrie circulaire" data-en="Dakar, Senegal · Circular industry">Dakar, Sénégal · Industrie circulaire</span>
+      <span data-fr="CITABEL SARL · Dakar, Sénégal · Fondée en 2024" data-en="CITABEL SARL · Dakar, Senegal · Founded 2024">CITABEL SARL · Dakar, Sénégal · Fondée en 2024</span>
     </div>
     <h1 class="cinema-title display rv rv-1">
       <span data-fr="Made in Senegal" data-en="Made in Senegal">Made in Senegal</span><br/>
       <em data-fr="for Africa." data-en="for Africa.">for Africa.</em>
     </h1>
     <p class="cinema-sub rv rv-2">
-      <span data-fr="Du polymère recyclé aux infrastructures urbaines et au logement. Tampons de regards, grilles avaloirs, systèmes de drainage, maisons emboîtables — tout conçu et fabriqué à Dakar." data-en="From recycled polymer to urban infrastructure and modular housing. Manhole covers, gully grates, drainage systems, interlocking homes — all designed and manufactured in Dakar.">Du polymère recyclé aux infrastructures urbaines et au logement. Tampons de regards, grilles avaloirs, systèmes de drainage, maisons emboîtables — tout conçu et fabriqué à Dakar.</span>
+      <span data-fr="Le plastique collecté à Dakar devient l'infrastructure certifiée du Sénégal. Tampons de regards, grilles avaloirs, logements modulaires — conçus et fabriqués ici." data-en="Plastic collected in Dakar becomes Senegal's certified infrastructure. Manhole covers, gully grates, modular housing — designed and made here.">Le plastique collecté à Dakar devient l'infrastructure certifiée du Sénégal. Tampons de regards, grilles avaloirs, logements modulaires — conçus et fabriqués ici.</span>
     </p>
     <div class="cinema-cta rv rv-3">
       <a class="btn btn--primary" href="solutions.html">
@@ -243,8 +246,8 @@
         </h2>
       </div>
       <div class="col-span-5 col-start-7 rv rv-2" style="align-self: end">
-        <p class="lede" data-fr="Une matière commune — le plastique recyclé — deux échelles d'application. La voirie qui fait tenir la ville. Le logement qui l'habite." data-en="One shared material — recycled polymer — two scales of application. The street infrastructure that holds the city up. The housing that lives in it.">
-          Une matière commune — le plastique recyclé — deux échelles d'application. La voirie qui fait tenir la ville. Le logement qui l'habite.
+        <p class="lede" data-fr="Le même plastique recyclé sert la chaussée le matin et le logement le soir. CITABEL fabrique les deux, dans la même usine, avec le même procédé." data-en="The same recycled plastic serves the road in the morning and housing in the evening. CITABEL makes both, in the same plant, with the same process.">
+          Le même plastique recyclé sert la chaussée le matin et le logement le soir. CITABEL fabrique les deux, dans la même usine, avec le même procédé.
         </p>
       </div>
     </div>
@@ -260,8 +263,8 @@
         <div class="card__body">
           <span class="card__num">01 — <span data-fr="Voirie &amp; assainissement" data-en="Roads &amp; drainage">Voirie &amp; assainissement</span></span>
           <h3 class="card__title display"><em data-fr="Tampons" data-en="Manhole">Tampons</em> <span data-fr="composites, grilles avaloirs, regards hydrauliques." data-en="composite covers, gully grates, hydraulic chambers.">composites, grilles avaloirs, regards hydrauliques.</span></h3>
-          <p class="card__desc" data-fr="Plus légers que la fonte, sans valeur marchande pour les voleurs, insensibles à la corrosion. Certifiés EN 124-5, classes A15 à D400. Posés sur les principaux axes de Dakar, Thiès et Saint-Louis." data-en="Lighter than cast iron, with no scrap value, immune to corrosion. EN 124-5 certified, classes A15 to D400. Installed on the main road networks of Dakar, Thiès and Saint-Louis.">
-            Plus légers que la fonte, sans valeur marchande pour les voleurs, insensibles à la corrosion. Certifiés EN 124-5, classes A15 à D400. Posés sur les principaux axes de Dakar, Thiès et Saint-Louis.
+          <p class="card__desc" data-fr="Certifiés EN 124-5 classes A15 à D400. Sans valeur pour le vol, sans maintenance corrective. Déjà posés sur les principaux axes de Dakar, Thiès et Saint-Louis." data-en="EN 124-5 certified, classes A15 to D400. No scrap value, no corrosion maintenance. Already installed on the main road networks of Dakar, Thiès and Saint-Louis.">
+            Certifiés EN 124-5 classes A15 à D400. Sans valeur pour le vol, sans maintenance corrective. Déjà posés sur les principaux axes de Dakar, Thiès et Saint-Louis.
           </p>
           <div style="margin-top: 12px" class="btn btn--text"><span data-fr="Voir les produits" data-en="See products">Voir les produits</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></div>
         </div>
@@ -277,8 +280,8 @@
         <div class="card__body">
           <span class="card__num">02 — <span data-fr="Architecture modulaire" data-en="Modular architecture">Architecture modulaire</span></span>
           <h3 class="card__title display"><em data-fr="Logements" data-en="Modular">Logements</em> <span data-fr="modulaires en briques emboîtables." data-en="housing in interlocking bricks.">modulaires en briques emboîtables.</span></h3>
-          <p class="card__desc" data-fr="Briques sans mortier, pose en quelques jours, isolation thermique naturelle. Une réponse concrète aux besoins de logement abordable, durable et rapide à construire." data-en="Mortar-free bricks, installation in days, natural thermal insulation. A practical answer to the need for affordable, durable, fast-to-build housing.">
-            Briques sans mortier, pose en quelques jours, isolation thermique naturelle. Une réponse concrète aux besoins de logement abordable, durable et rapide à construire.
+          <p class="card__desc" data-fr="Pose sans mortier en quelques jours. Isolation thermique naturelle validée par l'École Polytechnique de Thiès. Un logement abordable qui dure." data-en="Mortar-free installation in a few days. Natural thermal insulation validated by the École Polytechnique de Thiès. Affordable housing that lasts.">
+            Pose sans mortier en quelques jours. Isolation thermique naturelle validée par l'École Polytechnique de Thiès. Un logement abordable qui dure.
           </p>
           <div style="margin-top: 12px" class="btn btn--text"><span data-fr="Découvrir l'habitat" data-en="Explore housing">Découvrir l'habitat</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></div>
         </div>
@@ -359,8 +362,8 @@
         </h2>
       </div>
       <div class="col-span-5 col-start-8 rv rv-1">
-        <p class="lede" style="color: #C7C4B7" data-fr="Collecte locale, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Cinq étapes suffisent à produire une matière homogène, dense et traçable — certifiée pour la voirie comme pour le bâti." data-en="Local collection, spectroscopic sorting, shredding, fusion at 230 °C, high-pressure moulding. Five steps to produce a homogeneous, dense, traceable material — certified for roads and buildings alike.">
-          Collecte locale, tri spectroscopique, broyage, fusion à 230 °C, moulage haute pression. Cinq étapes suffisent à produire une matière homogène, dense et traçable — certifiée pour la voirie comme pour le bâti.
+        <p class="lede" style="color: #C7C4B7" data-fr="Le déchet est collecté dans les quartiers, trié par spectroscopie, broyé, fondu à 230 °C et moulé sous 800 tonnes. Ce qui sort est dense, homogène et certifié — pour la chaussée comme pour le bâtiment." data-en="Waste is collected from neighbourhoods, sorted by spectroscopy, shredded, melted at 230 °C and moulded under 800 tonnes. What comes out is dense, homogeneous and certified — for roads as much as for buildings.">
+          Le déchet est collecté dans les quartiers, trié par spectroscopie, broyé, fondu à 230 °C et moulé sous 800 tonnes. Ce qui sort est dense, homogène et certifié — pour la chaussée comme pour le bâtiment.
         </p>
         <a class="btn btn--ghost" style="margin-top: 24px; border-color: rgba(240,237,227,.4); color: #FAFAF6" href="technology.html">
           <span data-fr="Notre procédé en détail" data-en="Our process in detail">Notre procédé en détail</span>
@@ -620,7 +623,7 @@
           <li>Espace Ataya Properties 673</li>
           <li>Dakar — Sénégal</li>
           <li><a href="mailto:contact@citabel.sn">contact@citabel.sn</a></li>
-          <li><a href="tel:+221770000000">+221 77 000 00 00</a></li>
+          <li><a href="tel:+221338434399">+221 33 843 43 99</a></li>
         </ul>
       </div>
       <div>
