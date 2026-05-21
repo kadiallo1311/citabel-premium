@@ -231,7 +231,8 @@
 </style>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 <link rel="manifest" href="/manifest.webmanifest" />
-<meta name="theme-color" content="#14140F" /></head>
+<meta name="theme-color" content="#14140F" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script></head>
 <body data-page="contact">
 <div data-slot="nav"></div>
 
@@ -258,7 +259,7 @@
           Réponse sous 48 h ouvrées, avec un devis ou une fiche-projet préliminaire.
         </p>
 
-        <form class="form" id="quote-form" onsubmit="event.preventDefault(); this.querySelector('[data-success]').style.display='block'; this.querySelector('button[type=submit]').textContent = this.querySelector('button[type=submit]').dataset.sent;">
+        <form class="form" id="quote-form">
           <div class="field">
             <label data-fr="Je m'adresse à vous pour…" data-en="I'm reaching out about…">Je m'adresse à vous pour…</label>
             <div class="topics" id="topics">
@@ -335,8 +336,9 @@
           </div>
 
           <div style="margin-top: 8px; display:flex; gap: 16px; align-items: center; flex-wrap: wrap">
-            <button type="submit" class="btn btn--primary" data-fr="Envoyer la demande" data-en="Send request" data-sent="Demande envoyée ✓">
+            <button type="submit" class="btn btn--primary" data-sent="Demande envoyée ✓">
               <span data-fr="Envoyer la demande" data-en="Send request">Envoyer la demande</span>
+              <span data-sending style="display:none; font-size: 12px; margin-left: 6px">…</span>
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
             </button>
             <span data-success style="display:none; font-family: var(--mono); font-size: 12px; letter-spacing:.12em; color: var(--green); text-transform: uppercase" data-fr="Merci. Nous revenons vers vous très vite." data-en="Thank you. We'll get back to you shortly.">
@@ -494,6 +496,7 @@
 <script src="assets/partials.js"></script>
 <script>Citabel.mountChrome({page: 'contact'});</script>
 <script src="assets/site.js"></script>
+<script src="assets/sb.js"></script>
 <script>
   // topic chip selector
   document.getElementById('topics').addEventListener('click', e => {
